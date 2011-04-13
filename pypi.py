@@ -1,4 +1,4 @@
-"""utils to fetch download counts from PyPI"""
+"""fetch download counts from PyPI"""
 
 from collections import deque
 import sys
