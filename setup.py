@@ -9,11 +9,11 @@ setup(
     long_description=(
         open('README.txt').read() +
         open(os.path.join('docs', 'HISTORY.txt')).read()),
-    py_modules=['pypi'],
+    py_modules=['vanity'],
     author = 'Alex Clark',
     author_email = 'Alex Clark',
     entry_points = """
     [console_scripts]
-    vanity = pypi:main
+    vanity = vanity:main
     """
 )
