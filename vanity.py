@@ -72,7 +72,7 @@ def release_data(packages):
 
 
 def main():
-    usage = 'Usage: vanity [my.package]'
+    usage = 'Usage: vanity <package>'
     if len(sys.argv) >= 2 and len(sys.argv) < 3:
         if sys.argv[1] == '-h' or sys.argv[1] == '--help':
             print usage
