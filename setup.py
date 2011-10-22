@@ -4,7 +4,7 @@ import os
 
 setup(
     name='vanity',
-    version='1.0',
+    version='1.0.1',
     description='Easy access to PyPI download stats',
     long_description=(
         open('README.rst').read() +
