@@ -1,4 +1,4 @@
-############################################################################### 
+###############################################################################
 # Copyright (C) 2011 Alex Clark                                               #
 #                                                                             #
 # This program is free software; you can redistribute it and/or               #
@@ -19,8 +19,7 @@
 
 """fetch download counts from PyPI"""
 
-# Based on http://svn.plone.org/svn/collective/Products.PloneSoftwareCenter/\
-# trunk/Products/PloneSoftwareCenter/pypi.py
+# Based on https://github.com/collective/Products.PloneSoftwareCenter/blob/master/Products/PloneSoftwareCenter/pypi.py
 
 from collections import deque
 import sys
