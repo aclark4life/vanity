@@ -7,8 +7,8 @@ setup(
     version='1.0',
     description='Easy access to PyPI download stats',
     long_description=(
-        open('README.txt').read() +
-        open(os.path.join('docs', 'HISTORY.txt')).read()),
+        open('README.rst').read() +
+        open(os.path.join('docs', 'HISTORY.rst')).read()),
     py_modules=['vanity'],
     author = 'Alex Clark',
     author_email = 'Alex Clark',
