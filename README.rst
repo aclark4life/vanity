@@ -5,7 +5,7 @@ Introduction
 Easy access to PyPI download stats via command line::
 
     $ vanity Django
-    Package `Django` has been downloaded 216356 times!
+    Package `Django` has been downloaded 510991 times!
 
 Installation
 ============
