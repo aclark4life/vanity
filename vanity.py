@@ -79,8 +79,8 @@ def main():
         else:
             total = 0
             for urls, data in release_data([sys.argv[1]]):
-                if not urls == []:
-                    total += urls[0]['downloads']
+                for url in urls:
+                    total += url['downloads']
             if total != 0:
                 print 'Package `%s` has been downloaded %d times!\n' % (
                     sys.argv[1], total)
