@@ -22,6 +22,7 @@
 # Based on https://github.com/collective/Products.PloneSoftwareCenter/blob/master/Products/PloneSoftwareCenter/pypi.py
 
 from collections import deque
+import httplib
 import sys
 import xmlrpclib
 
@@ -35,6 +36,15 @@ def by_two(source):
         if len(out) == 2:
             yield out
             out = []
+
+
+def normalise_project(name):
+    http = httplib.HTTPConnection('pypi.python.org')
+    http.request('HEAD', '/simple/%s/' % name)
+    r = http.getresponse()
+    if r.status not in (200, 301):
+        raise ValueError(r.reason)
+    return r.getheader('location', name).split('/')[-1]
 
 
 def package_releases(packages):
@@ -77,16 +87,20 @@ def main():
         if sys.argv[1] == '-h' or sys.argv[1] == '--help':
             print usage
         else:
+            try:
+                project = normalise_project(sys.argv[1])
+            except ValueError:
+                print 'Are you sure `%s` exists?\n' % (sys.argv[1])
+                sys.exit(1)
             total = 0
-            for urls, data in release_data([sys.argv[1]]):
-                if not urls == []:
-                    total += urls[0]['downloads']
+            for urls, data in release_data([project]):
+                for url in urls:
+                    total += url['downloads']
             if total != 0:
                 print 'Package `%s` has been downloaded %d times!\n' % (
-                    sys.argv[1], total)
+                    project, total)
             else:
-                print 'No downloads. Are you sure `%s` exists?\n' % (
-                    sys.argv[1])
+                print 'No downloads for `%s`.\n' % (project)
     else:
         print usage
 
