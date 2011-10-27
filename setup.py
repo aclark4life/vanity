@@ -12,6 +12,7 @@ setup(
     py_modules=['vanity'],
     author = 'Alex Clark',
     author_email = 'Alex Clark',
+    url='https://github.com/aclark4life/vanity',
     entry_points = """
     [console_scripts]
     vanity = vanity:main
