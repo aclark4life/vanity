@@ -1,4 +1,4 @@
-############################################################################### 
+###############################################################################
 # Copyright (C) 2011 Alex Clark                                               #
 #                                                                             #
 # This program is free software; you can redistribute it and/or               #
@@ -72,16 +72,22 @@ def release_data(packages):
         yield urls, data
 
 
+def downloads_total(package):
+    total = 0
+    for urls, data in release_data([package]):
+        if not urls == []:
+            total += urls[0]['downloads']
+
+    return total
+
+
 def main():
     usage = 'Usage: vanity [my.package]'
     if len(sys.argv) >= 2 and len(sys.argv) < 3:
         if sys.argv[1] == '-h' or sys.argv[1] == '--help':
             print usage
         else:
-            total = 0
-            for urls, data in release_data([sys.argv[1]]):
-                if not urls == []:
-                    total += urls[0]['downloads']
+            total = downloads_total(sys.argv[1])
             if total != 0:
                 print 'Package `%s` has been downloaded %d times!\n' % (
                     sys.argv[1], total)
