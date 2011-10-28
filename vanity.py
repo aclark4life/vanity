@@ -81,6 +81,15 @@ def release_data(packages):
         yield urls, data
 
 
+def downloads_total(package):
+    total = 0
+    for urls, data in release_data([package]):
+        if not urls == []:
+            total += urls[0]['downloads']
+
+    return total
+
+
 def main():
     usage = 'Usage: vanity <package>'
     if len(sys.argv) >= 2 and len(sys.argv) < 3:
@@ -92,10 +101,9 @@ def main():
             except ValueError:
                 print 'Are you sure `%s` exists?\n' % (sys.argv[1])
                 sys.exit(1)
-            total = 0
-            for urls, data in release_data([project]):
-                for url in urls:
-                    total += url['downloads']
+
+            total = downloads_total(project)
+
             if total != 0:
                 print 'Package `%s` has been downloaded %d times!\n' % (
                     project, total)
