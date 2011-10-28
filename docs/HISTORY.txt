@@ -5,7 +5,7 @@ Changelog
 1.1.1 (2011-10-27)
 ~~~~~~~~~~~~~~~~~~
 
-- Refactor: create `downloads_total` function to make external use simpler.
+- Refactor: create ``downloads_total`` function to make external use simpler.
   [kennethreitz]
 
 1.1.0 (2011-10-25)
