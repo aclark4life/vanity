@@ -84,8 +84,8 @@ def release_data(packages):
 def downloads_total(package):
     total = 0
     for urls, data in release_data([package]):
-        if not urls == []:
-            total += urls[0]['downloads']
+        for url in urls:
+            total += url['downloads']
 
     return total
 
