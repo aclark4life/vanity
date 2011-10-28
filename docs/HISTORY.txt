@@ -2,6 +2,12 @@
 Changelog
 ---------
 
+1.1.2 (2011-10-28)
+~~~~~~~~~~~~~~~~~~
+
+- Fix regression: Re-fix download counts.
+  [JNRowe]
+
 1.1.1 (2011-10-27)
 ~~~~~~~~~~~~~~~~~~
 
