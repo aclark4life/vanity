@@ -104,7 +104,7 @@ def downloads_total(package, verbose=False):
                 # but upload_time is a DateTime obj
                 downloads = url['downloads']
                 filename = url['filename']
-                upload_time = time.strftime('%Y/%m/%d',
+                upload_time = time.strftime('%Y-%m-%d',
                     url['upload_time'].timetuple())
                 items.append('%s %s %s' % (filename, upload_time, downloads))
 
