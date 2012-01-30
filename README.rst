@@ -23,11 +23,11 @@ Or download the compressed archive, extract it, and inside it run::
 
     $ python setup.py install
 
-Advanced usage
-==============
+Advanced
+========
 
-To see how many times each release was downloaded (and when it was uploaded),
-specify the verbose mode, with ``-v`` or ``--verbose``::
+To display **file name**, **upload date**, and **download count** for each release,
+specify verbose mode with ``-v`` or ``--verbose``::
 
     $ vanity django -v
     Django-1.1.3.tar.gz     2010-12-23    2,618
