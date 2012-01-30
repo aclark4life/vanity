@@ -3,7 +3,7 @@ import os
 
 setup(
     author='Alex Clark',
-    author_email='Alex Clark',
+    author_email='aclark@aclark.net',
     description='Easy access to PyPI download stats',
     entry_points={
         'console_scripts': 'vanity = vanity:main'
@@ -18,5 +18,5 @@ setup(
         'vanity'
     ],
     url='https://github.com/aclark4life/vanity',
-    version='1.2.0',
+    version='1.2.1',
 )
