@@ -100,9 +100,23 @@ def downloads_total(package, verbose=False):
     for urls, data in release_data([package]):
         for url in urls:
             if verbose:
-                print url
+                # XXX Would like to print '%s(key)s' % url
+                # but upload_time is a DateTime obj
+                downloads = url['downloads']
+                filename = url['filename']
+                upload_time = time.strftime('%Y/%m/%d',
+                    url['upload_time'].timetuple())
+                items.append('%s %s %s' % (filename, upload_time, downloads))
+
             total += url['downloads']
 
+
+    if verbose:
+        items.reverse()
+        for item in items:
+            print item
+
+    # Don't break api
     return total
 
 

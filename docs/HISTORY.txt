@@ -5,14 +5,14 @@ Changelog
 1.1.3 (2012-01-29)
 ~~~~~~~~~~~~~~~~~~
 
-- Add locale to format downloads e.g. "700,232 times" instead of "700232 times"
+- Add verbose option to display, date, and downloads per release.
   [aclark]
 
-- Allow ``-v`` or ``--verbose`` to be specified; gives download count per
-  release. 
+- Add locale to format downloads e.g. "700,232 times" instead of "700232
+  times".
   [aclark]
 
-- Better handling of command line args and usage statement
+- Better handling of command line args and usage.
   [aclark]
 
 1.1.2 (2011-10-28)
