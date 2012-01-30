@@ -19,7 +19,8 @@
 
 """fetch download counts from PyPI"""
 
-# Based on https://github.com/collective/Products.PloneSoftwareCenter/blob/master/Products/PloneSoftwareCenter/pypi.py
+# Based on https://github.com/collective/Products.PloneSoftwareCenter\
+# /blob/master/Products/PloneSoftwareCenter/pypi.py
 
 from collections import deque
 import httplib
@@ -38,7 +39,8 @@ Usage: vanity [OPTIONS] <package>
 Options:
 
   -h, --help: Print this message
-  -v, --verbose: Print download count for each release
+  -v, --verbose: Print file name, upload date, and download count for each
+        release
 """
 
 
@@ -100,21 +102,25 @@ def downloads_total(package, verbose=False):
     for urls, data in release_data([package]):
         for url in urls:
             if verbose:
-                # XXX Would like to print '%s(key)s' % url
-                # but upload_time is a DateTime obj
-                downloads = url['downloads']
                 filename = url['filename']
-                upload_time = time.strftime('%Y-%m-%d',
+                downloads = url['downloads']
+                upload_time = time.strftime('    %Y-%m-%d',  # XXX Would
+                    # like to print '%s(key)s' % url but upload_time
+                    # is a DateTime object
                     url['upload_time'].timetuple())
-                items.append('%s %s %s' % (filename, upload_time, downloads))
+                items.append('%s %s %8s' % (filename, upload_time,
+                    locale.format("%d", downloads, grouping=True)))
 
             total += url['downloads']
 
-
     if verbose:
         items.reverse()
+        # http://stackoverflow.com/questions/873327/\
+        # pythons-most-efficient-way-to-choose-longest-string-in-list
+        longest = len(max(items, key=len))
         for item in items:
-            print item
+            print item.rjust(longest)
+        print '-' * longest
 
     # Don't break api
     return total
@@ -147,7 +153,7 @@ def main():
                 print USAGE
                 sys.exit(1)
 
-        for opt in '-v', '--verbose': 
+        for opt in '-v', '--verbose':
             if opt in sys.argv:
                 sys.argv.remove(opt)  # remove opt leave package
                 _VERBOSE = True
