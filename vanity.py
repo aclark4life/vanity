@@ -25,6 +25,7 @@ from collections import deque
 import httplib
 import locale
 import sys
+import time
 import xmlrpclib
 
 client = xmlrpclib.ServerProxy('http://pypi.python.org/pypi')
@@ -95,6 +96,7 @@ def release_data(packages):
 
 def downloads_total(package, verbose=False):
     total = 0
+    items = []
     for urls, data in release_data([package]):
         for url in urls:
             if verbose:
