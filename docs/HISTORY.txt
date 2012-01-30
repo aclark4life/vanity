@@ -5,6 +5,10 @@ Changelog
 1.1.3 (2012-01-29)
 ~~~~~~~~~~~~~~~~~~
 
+- Allow ``-v`` or ``--verbose`` to be specified; gives download count per
+  release. 
+  [aclark]
+
 - Better handling of command line args and usage statement
   [aclark]
 

@@ -29,7 +29,7 @@ import xmlrpclib
 client = xmlrpclib.ServerProxy('http://pypi.python.org/pypi')
 
 USAGE = \
-"""
+"""\
 Usage: vanity [OPTIONS] <package>
 
 Options:
@@ -37,6 +37,8 @@ Options:
   -h, --help: Print this message
   -v, --verbose: Print download count for each release
 """
+
+_VERBOSE = False
 
 
 def by_two(source):
@@ -91,36 +93,63 @@ def release_data(packages):
         yield urls, data
 
 
-def downloads_total(package):
+def downloads_total(package, verbose=False):
     total = 0
     for urls, data in release_data([package]):
         for url in urls:
-            print url
+            if verbose:
+                print url
             total += url['downloads']
 
     return total
 
 
 def main():
-    # Only allow a single package and option to be specified
+    """
+    Run the vanity
+    """
+
+    # Allow at most a single package and option to be specified
     if len(sys.argv) >= 2 and len(sys.argv) < 4:
+
         if '-h' in sys.argv or '--help' in sys.argv:
             print USAGE
             sys.exit(1)
-        else:
-            try:
-                project = normalise_project(sys.argv[1])
-            except ValueError:
-                print 'Are you sure `%s` exists?\n' % (sys.argv[1])
+
+        optset = False  # If args == 3 make sure one arg is OPTION
+        for opt in sys.argv:
+            if opt.startswith('-'):
+                optset = True
+        if not optset and len(sys.argv) == 3:
+            print USAGE
+            sys.exit(1)
+
+        if len(sys.argv) == 2:  # Make sure single arg is not an OPTION
+            if sys.argv[1].startswith('-'):
+                print USAGE
                 sys.exit(1)
 
-            total = downloads_total(project)
+        for opt in '-v', '--verbose': 
+            if opt in sys.argv:
+                sys.argv.remove(opt)  # remove opt leave package
+                _VERBOSE = True
 
-            if total != 0:
-                print 'Package `%s` has been downloaded %d times!\n' % (
-                    project, total)
-            else:
-                print 'No downloads for `%s`.\n' % (project)
+        # XXX At what point does one start wishing they were using argparse or
+        # something similar? Right about now.
+
+        try:
+            project = normalise_project(sys.argv[1])
+        except ValueError:
+            print 'Are you sure `%s` exists?\n' % (sys.argv[1])
+            sys.exit(1)
+
+        total = downloads_total(project, verbose=_VERBOSE)
+
+        if total != 0:
+            print 'Package `%s` has been downloaded %d times!\n' % (
+                project, total)
+        else:
+            print 'No downloads for `%s`.\n' % (project)
     else:
         print USAGE
         sys.exit(1)
