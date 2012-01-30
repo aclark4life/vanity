@@ -23,10 +23,12 @@
 
 from collections import deque
 import httplib
+import locale
 import sys
 import xmlrpclib
 
 client = xmlrpclib.ServerProxy('http://pypi.python.org/pypi')
+locale.setlocale(locale.LC_ALL, '')
 
 USAGE = \
 """\
@@ -146,8 +148,8 @@ def main():
         total = downloads_total(project, verbose=_VERBOSE)
 
         if total != 0:
-            print 'Package `%s` has been downloaded %d times!\n' % (
-                project, total)
+            print 'Package `%s` has been downloaded %s times!\n' % (
+                project, locale.format("%d", total, grouping=True))
         else:
             print 'No downloads for `%s`.\n' % (project)
     else:
