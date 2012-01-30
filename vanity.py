@@ -28,6 +28,16 @@ import xmlrpclib
 
 client = xmlrpclib.ServerProxy('http://pypi.python.org/pypi')
 
+USAGE = \
+"""
+Usage: vanity [OPTIONS] <package>
+
+Options:
+
+  -h, --help: Print this message
+  -v, --verbose: Print download count for each release
+"""
+
 
 def by_two(source):
     out = []
@@ -92,10 +102,10 @@ def downloads_total(package):
 
 
 def main():
-    usage = 'Usage: vanity <package>'
     if len(sys.argv) >= 2 and len(sys.argv) < 3:
         if '-h' in sys.argv or '--help' in sys.argv:
-            print usage
+            print USAGE
+            sys.exit(1)
         else:
             try:
                 project = normalise_project(sys.argv[1])
@@ -111,7 +121,9 @@ def main():
             else:
                 print 'No downloads for `%s`.\n' % (project)
     else:
-        print usage
+        print USAGE
+        sys.exit(1)
 
 if __name__ == '__main__':
     main()
+    sys.exit(0)
