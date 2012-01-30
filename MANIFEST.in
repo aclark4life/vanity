@@ -1,2 +1,2 @@
-include *.txt *.rst
+include *.py *.rst
 recursive-include docs *.txt

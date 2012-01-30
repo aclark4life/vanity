@@ -19,4 +19,5 @@ setup(
     [console_scripts]
     vanity = vanity:main
     """
+    include_package_data = True,
 )
