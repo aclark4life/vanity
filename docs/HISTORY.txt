@@ -5,7 +5,7 @@ Changelog
 1.2.0 (2012-01-30)
 ~~~~~~~~~~~~~~~~~~
 
-- Add verbose option to display, date, and downloads per release.
+- Add verbose option to display file name, upload date, and download count per release.
   [aclark]
 
 - Add locale to format downloads e.g. "700,232 times" instead of "700232
