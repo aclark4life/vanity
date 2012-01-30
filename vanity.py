@@ -85,6 +85,7 @@ def downloads_total(package):
     total = 0
     for urls, data in release_data([package]):
         for url in urls:
+            print url
             total += url['downloads']
 
     return total
@@ -93,7 +94,7 @@ def downloads_total(package):
 def main():
     usage = 'Usage: vanity <package>'
     if len(sys.argv) >= 2 and len(sys.argv) < 3:
-        if sys.argv[1] == '-h' or sys.argv[1] == '--help':
+        if '-h' in sys.argv or '--help' in sys.argv:
             print usage
         else:
             try:
