@@ -102,7 +102,8 @@ def downloads_total(package):
 
 
 def main():
-    if len(sys.argv) >= 2 and len(sys.argv) < 3:
+    # Only allow a single package and option to be specified
+    if len(sys.argv) >= 2 and len(sys.argv) < 4:
         if '-h' in sys.argv or '--help' in sys.argv:
             print USAGE
             sys.exit(1)
