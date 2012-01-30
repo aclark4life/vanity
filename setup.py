@@ -12,6 +12,8 @@ setup(
     py_modules=['vanity'],
     author = 'Alex Clark',
     author_email = 'Alex Clark',
+    maintainer = 'pythonpackages',
+    maintainer_email = 'info@pythonpackages.com',
     url='https://github.com/aclark4life/vanity',
     entry_points = """
     [console_scripts]
