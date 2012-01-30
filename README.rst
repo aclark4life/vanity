@@ -10,13 +10,9 @@ Easy access to PyPI download stats via command line::
 Installation
 ============
 
-Install via ``pip``:: 
+Install with::
 
     $ pip install vanity
-
-Or ``easy_install``::
-
-    $ easy_install vanity
 
 Credits
 =======
