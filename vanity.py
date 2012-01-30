@@ -38,8 +38,6 @@ Options:
   -v, --verbose: Print download count for each release
 """
 
-_VERBOSE = False
-
 
 def by_two(source):
     out = []
@@ -108,6 +106,8 @@ def main():
     """
     Run the vanity
     """
+
+    _VERBOSE = False
 
     # Allow at most a single package and option to be specified
     if len(sys.argv) >= 2 and len(sys.argv) < 4:
