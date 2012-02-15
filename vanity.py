@@ -39,7 +39,7 @@ Usage: vanity [OPTIONS] <package>
 Options:
 
   -h, --help: Print this message
-  -v, --verbose: Print file name, upload date, and download count for each
+  -q, --quiet: Do not print file name, upload date, and download count for each
         release
 """
 
@@ -131,7 +131,7 @@ def main():
     Run the vanity
     """
 
-    _VERBOSE = False
+    _VERBOSE = True
 
     # Allow at most a single package and option to be specified
     if len(sys.argv) >= 2 and len(sys.argv) < 4:
@@ -153,10 +153,10 @@ def main():
                 print USAGE
                 sys.exit(1)
 
-        for opt in '-v', '--verbose':
+        for opt in '-q', '--quiet':
             if opt in sys.argv:
                 sys.argv.remove(opt)  # remove opt leave package
-                _VERBOSE = True
+                _VERBOSE = False
 
         # XXX At what point does one start wishing they were using argparse or
         # something similar? Right about now.
@@ -170,7 +170,7 @@ def main():
         total = downloads_total(project, verbose=_VERBOSE)
 
         if total != 0:
-            print 'Package `%s` has been downloaded %s times!\n' % (
+            print "Package '%s' has been downloaded %s times!\n" % (
                 project, locale.format("%d", total, grouping=True))
         else:
             print 'No downloads for `%s`.\n' % (project)
