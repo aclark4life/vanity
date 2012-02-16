@@ -40,7 +40,7 @@ Advanced options
 ================
 
 To supress the display of **file name**, **upload date**, and **download count** for each release,
-specify quite mode with ``-q`` or ``--quiet``::
+specify quiet mode with ``-q`` or ``--quiet``::
 
     $ vanity django -q
     Django has been downloaded 741,863 times!
