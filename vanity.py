@@ -41,7 +41,7 @@ Usage: vanity [OPTIONS] <package>
 Options:
 
   -h, --help: Print this message
-  -q, --quiet: Do not print file name, upload date, and download count for each
+  -q, --quiet: Do not print the file name, upload date, and download count for each
         release
 """
 
