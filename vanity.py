@@ -23,6 +23,7 @@
 # /blob/master/Products/PloneSoftwareCenter/pypi.py
 
 from collections import deque
+import blessings
 import httplib
 import locale
 import sys
@@ -31,6 +32,7 @@ import xmlrpclib
 
 client = xmlrpclib.ServerProxy('http://pypi.python.org/pypi')
 locale.setlocale(locale.LC_ALL, '')
+term = blessings.Terminal()
 
 USAGE = \
 """\
@@ -113,7 +115,7 @@ def downloads_total(package, verbose=False):
 
             total += url['downloads']
 
-    if verbose:
+    if verbose and items != []:
         items.reverse()
         # http://stackoverflow.com/questions/873327/\
         # pythons-most-efficient-way-to-choose-longest-string-in-list
@@ -164,16 +166,18 @@ def main():
         try:
             project = normalise_project(sys.argv[1])
         except ValueError:
-            print 'Are you sure `%s` exists?\n' % (sys.argv[1])
+            project = sys.argv[1]
+            print 'vanity:', term.bold('%s:' % project), 'No such module or package'
             sys.exit(1)
 
         total = downloads_total(project, verbose=_VERBOSE)
 
         if total != 0:
-            print "Package '%s' has been downloaded %s times!\n" % (
-                project, locale.format("%d", total, grouping=True))
+            print term.bold('%s' % project), 'has been downloaded'\
+                , term.bold('%s' % locale.format("%d", total, grouping=True))\
+                , 'times!'
         else:
-            print 'No downloads for `%s`.\n' % (project)
+            print 'No downloads for', term.bold('%s' % project)
     else:
         print USAGE
         sys.exit(1)

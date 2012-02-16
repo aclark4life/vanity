@@ -2,22 +2,20 @@
 Changelog
 ---------
 
-1.2.1 (Unreleased)
+1.2.1 (2012-02-15)
 ~~~~~~~~~~~~~~~~~~
 
 - Make verbose the default
+- Add blessings support to make output pretty
+- install_requires requests now for future refactor
   [aclark]
 
 1.2.0 (2012-01-30)
 ~~~~~~~~~~~~~~~~~~
 
 - Add verbose option to display file name, upload date, and download count per release.
-  [aclark]
-
 - Add locale to format downloads e.g. "700,232 times" instead of "700232
   times".
-  [aclark]
-
 - Better handling of command line args and usage.
   [aclark]
 

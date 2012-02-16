@@ -9,6 +9,10 @@ setup(
         'console_scripts': 'vanity = vanity:main'
     },
     include_package_data=True,
+    install_requires=[
+        'blessings',
+        'requests',
+    ],
     long_description=(open('README.rst').read() + open(
         os.path.join('docs', 'HISTORY.txt')).read()),
     maintainer='pythonpackages',
