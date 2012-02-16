@@ -144,8 +144,9 @@ def main():
 
         optset = False  # If args == 3 make sure one arg is OPTION
         for opt in sys.argv:
-            if opt.startswith('-'):
-                optset = True
+            for available in '-h', '-q':
+                if opt.startswith(available):
+                    optset = True
         if not optset and len(sys.argv) == 3:
             print USAGE
             sys.exit(1)
