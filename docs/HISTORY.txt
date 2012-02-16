@@ -8,7 +8,7 @@ Changelog
 - Make verbose the default
 - Add blessings support to make output pretty
 - install_requires requests for future refactor
-- Enforce available options better
+- Enforce available command line options better
   [aclark]
 
 1.2.0 (2012-01-30)

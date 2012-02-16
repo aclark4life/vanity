@@ -39,7 +39,7 @@ Or download the compressed archive, extract it, and inside it run::
 Advanced options
 ================
 
-To supress display of **file name**, **upload date**, and **download count** for each release,
+To supress the display of **file name**, **upload date**, and **download count** for each release,
 specify quite mode with ``-q`` or ``--quiet``::
 
     $ vanity django -q
