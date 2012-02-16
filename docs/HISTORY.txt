@@ -6,8 +6,11 @@ Changelog
 ~~~~~~~~~~~~~~~~~~
 
 - Make verbose the default
+  [aclark]
 - Add ``blessings`` support to make output pretty
+  [aclark]
 - install_requires ``requests`` for future refactor
+  [aclark]
 - Enforce available command line options better
   [aclark]
 
@@ -15,8 +18,10 @@ Changelog
 ~~~~~~~~~~~~~~~~~~
 
 - Add verbose option to display file name, upload date, and download count per release.
+  [aclark]
 - Add locale to format downloads e.g. "700,232 times" instead of "700232
   times".
+  [aclark]
 - Better handling of command line args and usage.
   [aclark]
 
