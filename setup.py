@@ -12,7 +12,7 @@ setup(
     },
     include_package_data=True,
     install_requires=[
-        'blessings',
+#        'blessings',
         'requests',
     ],
     long_description=(open('README.rst').read() + open(
