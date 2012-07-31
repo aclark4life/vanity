@@ -178,7 +178,7 @@ def main():
 #            print term.bold('%s' % project), 'has been downloaded'\
 #                , term.bold('%s' % locale.format("%d", total, grouping=True))\
 #                , 'times!'
-            print '%s has been downloaded %s times!' % (project, locale.format(total))
+            print '%s has been downloaded %s times!' % (project, locale.format("%d", total))
         else:
 #            print 'No downloads for', term.bold('%s' % project)
             print 'No downloads for %s' % project
