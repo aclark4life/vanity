@@ -31,7 +31,7 @@ import time
 import xmlrpclib
 
 client = xmlrpclib.ServerProxy('http://pypi.python.org/pypi')
-locale.setlocale(locale.LC_ALL, '')
+locale.setlocale(locale.LC_ALL, 'en_US')
 #term = blessings.Terminal()
 
 USAGE = \
