@@ -23,7 +23,7 @@
 # /blob/master/Products/PloneSoftwareCenter/pypi.py
 
 from collections import deque
-import blessings
+#import blessings
 import httplib
 import locale
 import sys
@@ -32,7 +32,7 @@ import xmlrpclib
 
 client = xmlrpclib.ServerProxy('http://pypi.python.org/pypi')
 locale.setlocale(locale.LC_ALL, '')
-term = blessings.Terminal()
+#term = blessings.Terminal()
 
 USAGE = \
 """\
@@ -168,17 +168,20 @@ def main():
             project = normalise_project(sys.argv[1])
         except ValueError:
             project = sys.argv[1]
-            print 'vanity:', term.bold('%s:' % project), 'No such module or package'
+#            print 'vanity:', term.bold('%s:' % project), 'No such module or package'
+            print 'vanity: %s: No such module or package' % project
             sys.exit(1)
 
         total = downloads_total(project, verbose=_VERBOSE)
 
         if total != 0:
-            print term.bold('%s' % project), 'has been downloaded'\
-                , term.bold('%s' % locale.format("%d", total, grouping=True))\
-                , 'times!'
+#            print term.bold('%s' % project), 'has been downloaded'\
+#                , term.bold('%s' % locale.format("%d", total, grouping=True))\
+#                , 'times!'
+            print '%s has been downloaded %s times!' % (project, total)
         else:
-            print 'No downloads for', term.bold('%s' % project)
+#            print 'No downloads for', term.bold('%s' % project)
+            print 'No downloads for %s' % project
     else:
         print USAGE
         sys.exit(1)

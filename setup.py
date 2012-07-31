@@ -1,6 +1,8 @@
 from setuptools import setup
 import os
 
+VERSION='1.2.2'
+
 setup(
     author='Alex Clark',
     author_email='aclark@aclark.net',
@@ -22,5 +24,5 @@ setup(
         'vanity'
     ],
     url='https://github.com/aclark4life/vanity',
-    version='1.2.1',
+    version=VERSION,
 )
