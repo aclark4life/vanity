@@ -13,7 +13,7 @@ setup(
     include_package_data=True,
     install_requires=[
 #        'blessings',
-        'requests',
+#        'requests',
     ],
     long_description=(open('README.rst').read() + open(
         os.path.join('docs', 'HISTORY.txt')).read()),
