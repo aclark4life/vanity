@@ -1,34 +1,46 @@
-
 Changelog
 ---------
+
+1.2.3 (2012-08-08)
+~~~~~~~~~~~~~~~~~~
+
+- Use optparse for option and argument parsing.
+  [JNRowe]
+
+- Don't fail when the en_US locale isn't available.
+  [JNRowe]
+
+- Python 3 compatibility.
+  [JNRowe]
 
 1.2.2 (2012-07-31)
 ~~~~~~~~~~~~~~~~~~
 
 - Remove blessings for Windows compat
+  [aclark4life]
 
 1.2.1 (2012-02-15)
 ~~~~~~~~~~~~~~~~~~
 
 - Make verbose the default
-  [aclark]
+  [aclark4life]
 - Add ``blessings`` support to make output pretty
-  [aclark]
+  [aclark4life]
 - install_requires ``requests`` for future refactor
-  [aclark]
+  [aclark4life]
 - Enforce available command line options better
-  [aclark]
+  [aclark4life]
 
 1.2.0 (2012-01-30)
 ~~~~~~~~~~~~~~~~~~
 
 - Add verbose option to display file name, upload date, and download count per release.
-  [aclark]
+  [aclark4life]
 - Add locale to format downloads e.g. "700,232 times" instead of "700232
   times".
-  [aclark]
+  [aclark4life]
 - Better handling of command line args and usage.
-  [aclark]
+  [aclark4life]
 
 1.1.2 (2011-10-28)
 ~~~~~~~~~~~~~~~~~~
@@ -51,10 +63,10 @@ Changelog
   [JNRowe]
 
 - Package cleanup
-  [aclark]
+  [aclark4life]
 
 1.0 (04-13-2011)
 ~~~~~~~~~~~~~~~~
 
 - Initial release
-  [aclark]
+  [aclark4life]
