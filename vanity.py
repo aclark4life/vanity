@@ -37,7 +37,10 @@ except ImportError:  # Python 2
     import xmlrpclib as xmlrpc
 
 client = xmlrpc.ServerProxy('http://pypi.python.org/pypi')
-locale.setlocale(locale.LC_ALL, 'en_US')
+try:
+    locale.setlocale(locale.LC_ALL, 'en_US')
+except locale.Error:
+    pass
 #term = blessings.Terminal()
 
 USAGE = \
