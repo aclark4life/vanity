@@ -24,13 +24,19 @@
 
 from collections import deque
 #import blessings
-import httplib
+try:
+    from http.client import HTTPConnection
+except ImportError:
+    from httplib import HTTPConnection
 import locale
 import sys
 import time
-import xmlrpclib
+try:
+    import xmlrpc.client as xmlrpc
+except ImportError:  # Python 2
+    import xmlrpclib as xmlrpc
 
-client = xmlrpclib.ServerProxy('http://pypi.python.org/pypi')
+client = xmlrpc.ServerProxy('http://pypi.python.org/pypi')
 locale.setlocale(locale.LC_ALL, 'en_US')
 #term = blessings.Terminal()
 
@@ -56,7 +62,7 @@ def by_two(source):
 
 
 def normalise_project(name):
-    http = httplib.HTTPConnection('pypi.python.org')
+    http = HTTPConnection('pypi.python.org')
     http.request('HEAD', '/simple/%s/' % name)
     r = http.getresponse()
     if r.status not in (200, 301):
@@ -65,14 +71,14 @@ def normalise_project(name):
 
 
 def package_releases(packages):
-    mcall = xmlrpclib.MultiCall(client)
+    mcall = xmlrpc.MultiCall(client)
     called_packages = deque()
     for package in packages:
         mcall.package_releases(package, True)
         called_packages.append(package)
         if len(called_packages) == 100:
             result = mcall()
-            mcall = xmlrpclib.MultiCall(client)
+            mcall = xmlrpc.MultiCall(client)
             for releases in result:
                 yield called_packages.popleft(), releases
     result = mcall()
@@ -81,7 +87,7 @@ def package_releases(packages):
 
 
 def release_data(packages):
-    mcall = xmlrpclib.MultiCall(client)
+    mcall = xmlrpc.MultiCall(client)
     i = 0
     for package, releases in package_releases(packages):
         for version in releases:
@@ -90,7 +96,7 @@ def release_data(packages):
             i += 1
             if i % 50 == 49:
                 result = mcall()
-                mcall = xmlrpclib.MultiCall(client)
+                mcall = xmlrpc.MultiCall(client)
                 for urls, data in by_two(result):
                     yield urls, data
     result = mcall()
@@ -121,8 +127,8 @@ def downloads_total(package, verbose=False):
         # pythons-most-efficient-way-to-choose-longest-string-in-list
         longest = len(max(items, key=len))
         for item in items:
-            print item.rjust(longest)
-        print '-' * longest
+            print(item.rjust(longest))
+        print('-' * longest)
 
     # Don't break api
     return total
@@ -139,7 +145,7 @@ def main():
     if len(sys.argv) >= 2 and len(sys.argv) < 4:
 
         if '-h' in sys.argv or '--help' in sys.argv:
-            print USAGE
+            print(USAGE)
             sys.exit(1)
 
         optset = False  # If args == 3 make sure one arg is OPTION
@@ -148,12 +154,12 @@ def main():
                 if opt.startswith(available):
                     optset = True
         if not optset and len(sys.argv) == 3:
-            print USAGE
+            print(USAGE)
             sys.exit(1)
 
         if len(sys.argv) == 2:  # Make sure single arg is not an OPTION
             if sys.argv[1].startswith('-'):
-                print USAGE
+                print(USAGE)
                 sys.exit(1)
 
         for opt in '-q', '--quiet':
@@ -169,7 +175,7 @@ def main():
         except ValueError:
             project = sys.argv[1]
 #            print 'vanity:', term.bold('%s:' % project), 'No such module or package'
-            print 'vanity: %s: No such module or package' % project
+            print('vanity: %s: No such module or package' % project)
             sys.exit(1)
 
         total = downloads_total(project, verbose=_VERBOSE)
@@ -178,12 +184,13 @@ def main():
 #            print term.bold('%s' % project), 'has been downloaded'\
 #                , term.bold('%s' % locale.format("%d", total, grouping=True))\
 #                , 'times!'
-            print '%s has been downloaded %s times!' % (project, locale.format("%d", total, grouping=True))
+            print('%s has been downloaded %s times!'
+                  % (project, locale.format("%d", total, grouping=True)))
         else:
 #            print 'No downloads for', term.bold('%s' % project)
-            print 'No downloads for %s' % project
+            print('No downloads for %s' % project)
     else:
-        print USAGE
+        print(USAGE)
         sys.exit(1)
 
 if __name__ == '__main__':
