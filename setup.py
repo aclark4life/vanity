@@ -1,7 +1,7 @@
 from setuptools import setup
 import os
 
-VERSION='1.2.2'
+VERSION='1.2.3'
 
 setup(
     author='Alex Clark',
