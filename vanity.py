@@ -29,6 +29,7 @@ try:
 except ImportError:
     from httplib import HTTPConnection
 import locale
+import optparse
 import sys
 import time
 try:
@@ -42,17 +43,6 @@ try:
 except locale.Error:
     pass
 #term = blessings.Terminal()
-
-USAGE = \
-"""\
-Usage: vanity [OPTIONS] <package>
-
-Options:
-
-  -h, --help: Print this message
-  -q, --quiet: Do not print the file name, upload date, and download count for each
-        release
-"""
 
 
 def by_two(source):
@@ -142,46 +132,20 @@ def main():
     Run the vanity
     """
 
-    _VERBOSE = True
+    parser = optparse.OptionParser()
+    parser.add_option('-q', '--quiet', action="store_false", dest="verbose",
+                      default=True,
+                      help='do not print results for individual uploads')
 
-    # Allow at most a single package and option to be specified
-    if len(sys.argv) >= 2 and len(sys.argv) < 4:
-
-        if '-h' in sys.argv or '--help' in sys.argv:
-            print(USAGE)
-            sys.exit(1)
-
-        optset = False  # If args == 3 make sure one arg is OPTION
-        for opt in sys.argv:
-            for available in '-h', '-q':
-                if opt.startswith(available):
-                    optset = True
-        if not optset and len(sys.argv) == 3:
-            print(USAGE)
-            sys.exit(1)
-
-        if len(sys.argv) == 2:  # Make sure single arg is not an OPTION
-            if sys.argv[1].startswith('-'):
-                print(USAGE)
-                sys.exit(1)
-
-        for opt in '-q', '--quiet':
-            if opt in sys.argv:
-                sys.argv.remove(opt)  # remove opt leave package
-                _VERBOSE = False
-
-        # XXX At what point does one start wishing they were using argparse or
-        # something similar? Right about now.
-
+    options, packages = parser.parse_args()
+    for package in packages:
         try:
-            project = normalise_project(sys.argv[1])
+            project = normalise_project(package)
         except ValueError:
             project = sys.argv[1]
-#            print 'vanity:', term.bold('%s:' % project), 'No such module or package'
-            print('vanity: %s: No such module or package' % project)
-            sys.exit(1)
+            parser.error('No such module or package %r' % project)
 
-        total = downloads_total(project, verbose=_VERBOSE)
+        total = downloads_total(project, verbose=options.verbose)
 
         if total != 0:
 #            print term.bold('%s' % project), 'has been downloaded'\
@@ -192,9 +156,6 @@ def main():
         else:
 #            print 'No downloads for', term.bold('%s' % project)
             print('No downloads for %s' % project)
-    else:
-        print(USAGE)
-        sys.exit(1)
 
 if __name__ == '__main__':
     main()
