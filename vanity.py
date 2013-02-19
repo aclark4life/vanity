@@ -17,7 +17,10 @@
 # USA.                                                                        #
 ###############################################################################
 
-"""fetch download counts from PyPI"""
+"""
+Easy access to download statistics from the Python Package Index,
+via the command line
+"""
 
 # Based on https://github.com/collective/Products.PloneSoftwareCenter\
 # /blob/master/Products/PloneSoftwareCenter/pypi.py
