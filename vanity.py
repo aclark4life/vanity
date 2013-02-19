@@ -18,7 +18,7 @@
 ###############################################################################
 
 """
-Easy access to download statistics from the Python Package Index,
+Easy access to package download statistics from the Python Package Index,
 via the command line
 """
 

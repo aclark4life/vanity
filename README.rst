@@ -2,7 +2,7 @@
 Introduction
 ============
 
-Easy access to download statistics from the Python Package Index, via the command line::
+Easy access to package download statistics from the Python Package Index, via the command line::
 
     $ vanity django
     Django-1.1.3.tar.gz     2010-12-23    2,643
@@ -32,7 +32,7 @@ Or::
 
     $ easy_install vanity
 
-Or download the distribution (i.e. compressed archive), extract, and inside run::
+Or download the distribution (i.e. compressed archive), extract it, and inside run::
 
     $ python setup.py install
 
