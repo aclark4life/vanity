@@ -1,24 +1,19 @@
 from setuptools import setup
 import os
 
-VERSION='1.2.3'
+VERSION='1.2.4'
 
 setup(
     author='Alex Clark',
     author_email='aclark@aclark.net',
-    description='Easy access to PyPI download stats',
+    description='Easy access to package download statistics \
+        from the Python Package Index, via the command line',
     entry_points={
-        'console_scripts': 'vanity = vanity:main'
+        'console_scripts': 'vanity = vanity:main',
     },
     include_package_data=True,
-    install_requires=[
-#        'blessings',
-#        'requests',
-    ],
     long_description=(open('README.rst').read() + open(
         os.path.join('docs', 'HISTORY.txt')).read()),
-    maintainer='pythonpackages',
-    maintainer_email='info@pythonpackages.com',
     name='vanity',
     py_modules=[
         'vanity'

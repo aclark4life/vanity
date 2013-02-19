@@ -26,7 +26,6 @@ via the command line
 # /blob/master/Products/PloneSoftwareCenter/pypi.py
 
 from collections import deque
-#import blessings
 try:
     from http.client import HTTPSConnection
 except ImportError:
@@ -45,7 +44,6 @@ try:
     locale.setlocale(locale.LC_ALL, 'en_US')
 except locale.Error:
     pass
-#term = blessings.Terminal()
 
 
 def by_two(source):
@@ -108,12 +106,14 @@ def downloads_total(package, verbose=False):
             if verbose:
                 filename = url['filename']
                 downloads = url['downloads']
-                upload_time = time.strftime('    %Y-%m-%d',  # XXX Would
-                    # like to print '%s(key)s' % url but upload_time
-                    # is a DateTime object
-                    url['upload_time'].timetuple())
-                items.append('%s %s %8s' % (filename, upload_time,
-                    locale.format("%d", downloads, grouping=True)))
+                # XXX Would
+                # like to print '%s(key)s' % url but upload_time
+                # is a DateTime object
+                upload_time = time.strftime(
+                    '    %Y-%m-%d', url['upload_time'].timetuple())
+                items.append(
+                    '%s %s %8s' % (filename, upload_time, locale.format(
+                        "%d", downloads, grouping=True)))
 
             total += url['downloads']
 
@@ -151,13 +151,9 @@ def main():
         total = downloads_total(project, verbose=options.verbose)
 
         if total != 0:
-#            print term.bold('%s' % project), 'has been downloaded'\
-#                , term.bold('%s' % locale.format("%d", total, grouping=True))\
-#                , 'times!'
             print('%s has been downloaded %s times!'
                   % (project, locale.format("%d", total, grouping=True)))
         else:
-#            print 'No downloads for', term.bold('%s' % project)
             print('No downloads for %s' % project)
 
 if __name__ == '__main__':
