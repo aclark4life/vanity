@@ -25,9 +25,9 @@
 from collections import deque
 #import blessings
 try:
-    from http.client import HTTPConnection
+    from http.client import HTTPSConnection
 except ImportError:
-    from httplib import HTTPConnection
+    from httplib import HTTPSConnection
 import locale
 import optparse
 import sys
@@ -37,7 +37,7 @@ try:
 except ImportError:  # Python 2
     import xmlrpclib as xmlrpc
 
-client = xmlrpc.ServerProxy('http://pypi.python.org/pypi')
+client = xmlrpc.ServerProxy('https://pypi.python.org/pypi')
 try:
     locale.setlocale(locale.LC_ALL, 'en_US')
 except locale.Error:
@@ -55,7 +55,7 @@ def by_two(source):
 
 
 def normalise_project(name):
-    http = HTTPConnection('pypi.python.org')
+    http = HTTPSConnection('pypi.python.org')
     http.request('HEAD', '/simple/%s/' % name)
     r = http.getresponse()
     if r.status not in (200, 301):
