@@ -39,8 +39,7 @@ Or download the compressed archive, extract it, and inside it run::
 Advanced options
 ================
 
-To supress the display of **file name**, **upload date**, and **download count** for each release,
-specify quiet mode with ``-q`` or ``--quiet``::
+To supress the display of **file name**, **upload date**, and **download count** for each release, specify quiet mode with ``-q`` or ``--quiet``::
 
     $ vanity django -q
     Django has been downloaded 741,863 times!
@@ -48,8 +47,8 @@ specify quiet mode with ``-q`` or ``--quiet``::
 Credits
 =======
 
-- Based on code from `Products.PloneSoftwareCenter`_ written by
-  `David Glick`_.
+Based on code from `Products.PloneSoftwareCenter`_ written by `David Glick`_.
 
 .. _`Products.PloneSoftwareCenter`: http://pypi.python.org/pypi/Products.PloneSoftwareCenter
 .. _`David Glick`: http://davisagli.com
+
