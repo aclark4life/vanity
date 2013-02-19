@@ -132,7 +132,7 @@ def downloads_total(package, verbose=False):
 
 def main():
     """
-    Run the vanity
+    Run vanity
     """
 
     parser = optparse.OptionParser()
