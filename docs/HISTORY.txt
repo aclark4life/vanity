@@ -1,6 +1,12 @@
 Changelog
 ---------
 
+1.2.4 (2013-02-19)
+~~~~~~~~~~~~~~~~~~
+
+- Use https for PyPI now [aclark]
+- Return usage statement when no args passed [aclark]
+
 1.2.3 (2012-08-08)
 ~~~~~~~~~~~~~~~~~~
 
