@@ -1,67 +1,67 @@
 Changelog
----------
+=========
 
 1.2.4 (2013-02-19)
-~~~~~~~~~~~~~~~~~~
+------------------
 
-- Use https for PyPI now [aclark]
-- Return usage statement when no args passed [aclark]
+- Use https for PyPI now
+  [aclark]
+- Return usage statement when no args passed
+  [aclark]
 
 1.2.3 (2012-08-08)
-~~~~~~~~~~~~~~~~~~
+------------------
 
 - Use optparse for option and argument parsing.
   [JNRowe]
-
 - Don't fail when the en_US locale isn't available.
   [JNRowe]
-
 - Python 3 compatibility.
   [JNRowe]
 
 1.2.2 (2012-07-31)
-~~~~~~~~~~~~~~~~~~
+------------------
 
 - Remove blessings for Windows compat
-  [aclark4life]
+  [aclark]
 
 1.2.1 (2012-02-15)
-~~~~~~~~~~~~~~~~~~
+------------------
 
 - Make verbose the default
-  [aclark4life]
+  [aclark]
 - Add ``blessings`` support to make output pretty
-  [aclark4life]
+  [aclark]
 - install_requires ``requests`` for future refactor
-  [aclark4life]
+  [aclark]
 - Enforce available command line options better
-  [aclark4life]
+  [aclark]
 
 1.2.0 (2012-01-30)
-~~~~~~~~~~~~~~~~~~
+------------------
 
 - Add verbose option to display file name, upload date, and download count per release.
-  [aclark4life]
+  [aclark]
 - Add locale to format downloads e.g. "700,232 times" instead of "700232
   times".
-  [aclark4life]
+  [aclark]
 - Better handling of command line args and usage.
-  [aclark4life]
+  [aclark]
 
 1.1.2 (2011-10-28)
-~~~~~~~~~~~~~~~~~~
+------------------
 
 - Fix regression: Re-fix download counts.
   [JNRowe]
 
 1.1.1 (2011-10-27)
-~~~~~~~~~~~~~~~~~~
+------------------
 
 - Refactor: create ``downloads_total`` function to make external use simpler.
   [kennethreitz]
 
 1.1.0 (2011-10-25)
-~~~~~~~~~~~~~~~~~~
+------------------
 
 - Bug fixes: support for case insensitive project names and support for
   counting all release files (e.g. binaries in addition to sdist) and
@@ -69,10 +69,10 @@ Changelog
   [JNRowe]
 
 - Package cleanup
-  [aclark4life]
+  [aclark]
 
 1.0 (04-13-2011)
-~~~~~~~~~~~~~~~~
+------------------
 
 - Initial release
-  [aclark4life]
+  [aclark]
