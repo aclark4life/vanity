@@ -141,6 +141,11 @@ def main():
                       help='do not print results for individual uploads')
 
     options, packages = parser.parse_args()
+
+    if not packages:
+        print('Usage: vanity [options] <package>')
+        sys.exit(1)
+
     for package in packages:
         try:
             project = normalise_project(package)
