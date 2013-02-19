@@ -50,5 +50,5 @@ Credits
 Based on code from `Products.PloneSoftwareCenter`_ written by `David Glick`_.
 
 .. _`Products.PloneSoftwareCenter`: http://pypi.python.org/pypi/Products.PloneSoftwareCenter
-.. _`David Glick`: http://davisagli.com
+.. _`David Glick`: http://glicksoftware.com
 
