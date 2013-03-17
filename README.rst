@@ -1,4 +1,3 @@
-
 Introduction
 ============
 
@@ -32,7 +31,7 @@ Or::
 
     $ easy_install vanity
 
-Or download the distribution (i.e. compressed archive), extract it, and inside run::
+Or, download the distribution (i.e. compressed archive file), extract it and inside run::
 
     $ python setup.py install
 
