@@ -36,14 +36,6 @@ Or download the distribution (i.e. compressed archive), extract it, and inside r
 
     $ python setup.py install
 
-Advanced options
-================
-
-To supress the display of **file name**, **upload date**, and **download count** for each release, specify quiet mode with ``-q`` or ``--quiet``::
-
-    $ vanity django -q
-    Django has been downloaded 741,863 times!
-
 Credits
 =======
 
