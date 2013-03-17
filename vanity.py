@@ -173,6 +173,5 @@ def vanity():
             print('No downloads for %s.' % package)
 
 
-
 if __name__ == '__main__':
     vanity()
