@@ -21,10 +21,10 @@ setup(
         os.path.join('docs', 'HISTORY.txt')).read()),
     name='vanity',
     py_modules=[
-        'test',
+        'tests',
         'vanity',
     ],
-    test_suite='tests:TestSuite',
+    test_suite='tests.TestSuite',
     url='https://github.com/aclark4life/vanity',
     version=VERSION,
     zip_safe=True,
