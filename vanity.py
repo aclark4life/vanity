@@ -68,14 +68,11 @@ def downloads_total(package, verbose=True, version=None):
             if verbose:
                 filename = url['filename']
                 downloads = url['downloads']
-                # XXX Would
-                # like to print '%s(key)s' % url but upload_time
-                # is a DateTime object
                 upload_time = time.strftime(
                     '    %Y-%m-%d', url['upload_time'].timetuple())
                 if version == data['version'] or not version:
                     items.append(
-                        '%s %s %8s' % (filename, upload_time, locale.format(
+                        '%s %s    %9s' % (filename, upload_time, locale.format(
                             "%d", downloads, grouping=True)))
                     total += url['downloads']
 
