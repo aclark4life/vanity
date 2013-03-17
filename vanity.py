@@ -135,10 +135,11 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('package', help='Package name.')
     args = parser.parse_args()
+    package = args.package
     try:
-        project = normalise_project(args.package)
+        project = normalise_project(package)
     except ValueError:
-        project = args.project
+        project = package
         parser.error('No such module or package %r' % project)
     total = downloads_total(project)
     if total != 0:
