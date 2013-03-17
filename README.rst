@@ -47,7 +47,7 @@ To supress the display of **file name**, **upload date**, and **download count**
 Credits
 =======
 
-Based on code from `Products.PloneSoftwareCenter`_ written by `David Glick`_.
+Based on code from `Products.PloneSoftwareCenter`_ by `David Glick`_.
 
 .. _`Products.PloneSoftwareCenter`: http://pypi.python.org/pypi/Products.PloneSoftwareCenter
 .. _`David Glick`: http://glicksoftware.com
