@@ -157,7 +157,11 @@ def main():
                 '%s has been downloaded %s times!' % (
                 package, locale.format("%d", total, grouping=True)))
     else:
-        print('No downloads for %s' % package)
+        if version:
+            print('No downloads for %s %s.' % (package, version))
+        else:
+            print('No downloads for %s.' % package)
+
 
 
 if __name__ == '__main__':
