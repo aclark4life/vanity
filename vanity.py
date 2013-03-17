@@ -56,6 +56,38 @@ def by_two(source):
             out = []
 
 
+def downloads_total(package, version, verbose=True):
+    total = 0
+    items = []
+    for urls, data in release_data([package]):
+        for url in urls:
+            if verbose:
+                filename = url['filename']
+                downloads = url['downloads']
+                # XXX Would
+                # like to print '%s(key)s' % url but upload_time
+                # is a DateTime object
+                upload_time = time.strftime(
+                    '    %Y-%m-%d', url['upload_time'].timetuple())
+                if version == data['version'] or not version:
+                    items.append(
+                        '%s %s %8s' % (filename, upload_time, locale.format(
+                            "%d", downloads, grouping=True)))
+                    total += url['downloads']
+
+    if verbose and items != []:
+        items.reverse()
+        # http://stackoverflow.com/questions/873327/\
+        # pythons-most-efficient-way-to-choose-longest-string-in-list
+        longest = len(max(items, key=len))
+        for item in items:
+            print(item.rjust(longest))
+        print('-' * longest)
+
+    # Don't break api
+    return total
+
+
 def normalise_package(name):
     http = HTTPSConnection('pypi.python.org')
     http.request('HEAD', '/simple/%s/' % name)
@@ -97,38 +129,6 @@ def release_data(packages):
     result = mcall()
     for urls, data in by_two(result):
         yield urls, data
-
-
-def downloads_total(package, version, verbose=True):
-    total = 0
-    items = []
-    for urls, data in release_data([package]):
-        for url in urls:
-            if verbose:
-                filename = url['filename']
-                downloads = url['downloads']
-                # XXX Would
-                # like to print '%s(key)s' % url but upload_time
-                # is a DateTime object
-                upload_time = time.strftime(
-                    '    %Y-%m-%d', url['upload_time'].timetuple())
-                if version == data['version'] or not version:
-                    items.append(
-                        '%s %s %8s' % (filename, upload_time, locale.format(
-                            "%d", downloads, grouping=True)))
-                    total += url['downloads']
-
-    if verbose and items != []:
-        items.reverse()
-        # http://stackoverflow.com/questions/873327/\
-        # pythons-most-efficient-way-to-choose-longest-string-in-list
-        longest = len(max(items, key=len))
-        for item in items:
-            print(item.rjust(longest))
-        print('-' * longest)
-
-    # Don't break api
-    return total
 
 
 def main():
