@@ -12,7 +12,7 @@ setup(
     description='Easy access to package download statistics \
         from the Python Package Index, via the command line',
     entry_points={
-        'console_scripts': 'vanity = vanity:main',
+        'console_scripts': 'vanity=vanity:main',
     },
     include_package_data=True,
     keywords='analytics python package index statistics',
@@ -21,7 +21,6 @@ setup(
         os.path.join('docs', 'HISTORY.txt')).read()),
     name='vanity',
     py_modules=[
-        'tests',
         'vanity',
     ],
     test_suite='tests.TestSuite',
