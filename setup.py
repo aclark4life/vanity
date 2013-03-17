@@ -14,7 +14,7 @@ setup(
     description='Easy access to package download statistics \
         from the Python Package Index, via the command line',
     entry_points={
-        'console_scripts': 'vanity=vanity:main',
+        'console_scripts': 'vanity=vanity:vanity',
     },
     include_package_data=True,
     keywords='analytics python package index statistics',

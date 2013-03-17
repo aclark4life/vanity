@@ -131,7 +131,7 @@ def release_data(packages):
         yield urls, data
 
 
-def main():
+def vanity():
     """
     View package download statistics from PyPI.
     """
@@ -165,4 +165,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    vanity()
