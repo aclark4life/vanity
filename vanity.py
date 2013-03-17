@@ -149,11 +149,13 @@ def main():
     total = downloads_total(package, version)
     if total != 0:
         if version:
-            print('%s %s has been downloaded %s times!'
-              % (package, version, locale.format("%d", total, grouping=True)))
+            print(
+                '%s %s has been downloaded %s times!' % (
+                package, version, locale.format("%d", total, grouping=True)))
         else:
-            print('%s has been downloaded %s times!'
-              % (package, locale.format("%d", total, grouping=True)))
+            print(
+                '%s has been downloaded %s times!' % (
+                package, locale.format("%d", total, grouping=True)))
     else:
         print('No downloads for %s' % package)
 
