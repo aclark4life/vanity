@@ -19,8 +19,11 @@ setup(
     include_package_data=True,
     keywords='analytics python package index statistics',
     license='GPL',
-    long_description=(open('README.rst').read() + open(
-        os.path.join('docs', 'HISTORY.txt')).read()),
+    long_description=(
+        open('README.rst').read() + '\n' + 
+        open(os.path.join('docs', 'HISTORY.txt')).read() + '\n' +
+        open(os.path.join('docs', 'CONTRIBUTORS.txt')).read()
+    ),
     name='vanity',
     py_modules=[
         'vanity',
