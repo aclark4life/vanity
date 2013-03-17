@@ -112,12 +112,11 @@ def downloads_total(package, version, verbose=True):
                 # is a DateTime object
                 upload_time = time.strftime(
                     '    %Y-%m-%d', url['upload_time'].timetuple())
-                if version == data['version']:
+                if version == data['version'] or not version:
                     items.append(
                         '%s %s %8s' % (filename, upload_time, locale.format(
                             "%d", downloads, grouping=True)))
-
-            total += url['downloads']
+                    total += url['downloads']
 
     if verbose and items != []:
         items.reverse()
@@ -149,7 +148,11 @@ def main():
         parser.error('No such module or package %r' % package)
     total = downloads_total(package, version)
     if total != 0:
-        print('%s has been downloaded %s times!'
+        if version:
+            print('%s %s has been downloaded %s times!'
+              % (package, version, locale.format("%d", total, grouping=True)))
+        else:
+            print('%s has been downloaded %s times!'
               % (package, locale.format("%d", total, grouping=True)))
     else:
         print('No downloads for %s' % package)
