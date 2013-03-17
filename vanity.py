@@ -53,7 +53,7 @@ def by_two(source):
             out = []
 
 
-def normalise_project(name):
+def normalise_package(name):
     http = HTTPSConnection('pypi.python.org')
     http.request('HEAD', '/simple/%s/' % name)
     r = http.getresponse()
@@ -137,16 +137,15 @@ def main():
     args = parser.parse_args()
     package = args.package
     try:
-        project = normalise_project(package)
+        package = normalise_package(package)
     except ValueError:
-        project = package
-        parser.error('No such module or package %r' % project)
-    total = downloads_total(project)
+        parser.error('No such module or package %r' % package)
+    total = downloads_total(package)
     if total != 0:
         print('%s has been downloaded %s times!'
-              % (project, locale.format("%d", total, grouping=True)))
+              % (package, locale.format("%d", total, grouping=True)))
     else:
-        print('No downloads for %s' % project)
+        print('No downloads for %s' % package)
 
 if __name__ == '__main__':
     main()
