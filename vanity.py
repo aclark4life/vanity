@@ -32,7 +32,6 @@ except ImportError:
     from httplib import HTTPSConnection
 import argparse
 import locale
-import sys
 import time
 try:
     import xmlrpc.client as xmlrpc
@@ -132,19 +131,16 @@ def downloads_total(package, verbose=False):
 
 def main():
     """
-    Run vanity
+    View package download statistics from PyPI.
     """
-
-    parser = argparse.ArgumentParser(
-        description='View package download statistics from PyPI.')
+    parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('package', help='Package name.')
     args = parser.parse_args()
     try:
         project = normalise_project(args.package)
     except ValueError:
-        project = sys.argv[1]
+        project = args.project
         parser.error('No such module or package %r' % project)
-
     total = downloads_total(project)
     if total != 0:
         print('%s has been downloaded %s times!'
@@ -154,4 +150,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-    sys.exit(0)
