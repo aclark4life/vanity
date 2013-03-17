@@ -30,8 +30,8 @@ try:
     from http.client import HTTPSConnection
 except ImportError:
     from httplib import HTTPSConnection
+import argparse
 import locale
-import optparse
 import sys
 import time
 try:
@@ -135,31 +135,22 @@ def main():
     Run vanity
     """
 
-    parser = optparse.OptionParser()
-    parser.add_option('-q', '--quiet', action="store_false", dest="verbose",
-                      default=True,
-                      help='do not print results for individual uploads')
+    parser = argparse.ArgumentParser(
+        description='View package download statistics from PyPI.')
+    parser.add_argument('package', help='Package name.')
+    args = parser.parse_args()
+    try:
+        project = normalise_project(args.package)
+    except ValueError:
+        project = sys.argv[1]
+        parser.error('No such module or package %r' % project)
 
-    options, packages = parser.parse_args()
-
-    if not packages:
-        print('Usage: vanity [options] <package>')
-        sys.exit(1)
-
-    for package in packages:
-        try:
-            project = normalise_project(package)
-        except ValueError:
-            project = sys.argv[1]
-            parser.error('No such module or package %r' % project)
-
-        total = downloads_total(project, verbose=options.verbose)
-
-        if total != 0:
-            print('%s has been downloaded %s times!'
-                  % (project, locale.format("%d", total, grouping=True)))
-        else:
-            print('No downloads for %s' % project)
+    total = downloads_total(project)
+    if total != 0:
+        print('%s has been downloaded %s times!'
+              % (project, locale.format("%d", total, grouping=True)))
+    else:
+        print('No downloads for %s' % project)
 
 if __name__ == '__main__':
     main()
