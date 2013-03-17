@@ -18,8 +18,7 @@
 ###############################################################################
 
 """
-Easy access to package download statistics from the Python Package Index,
-via the command line
+View package download statistics from PyPI.
 """
 
 # Based on https://github.com/collective/Products.PloneSoftwareCenter\
