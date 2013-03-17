@@ -44,6 +44,9 @@ except locale.Error:
     pass
 
 
+OP = '=='
+
+
 def by_two(source):
     out = []
     for x in source:
@@ -96,7 +99,7 @@ def release_data(packages):
         yield urls, data
 
 
-def downloads_total(package, verbose=False):
+def downloads_total(package, version, verbose=True):
     total = 0
     items = []
     for urls, data in release_data([package]):
@@ -109,9 +112,10 @@ def downloads_total(package, verbose=False):
                 # is a DateTime object
                 upload_time = time.strftime(
                     '    %Y-%m-%d', url['upload_time'].timetuple())
-                items.append(
-                    '%s %s %8s' % (filename, upload_time, locale.format(
-                        "%d", downloads, grouping=True)))
+                if version == data['version']:
+                    items.append(
+                        '%s %s %8s' % (filename, upload_time, locale.format(
+                            "%d", downloads, grouping=True)))
 
             total += url['downloads']
 
@@ -136,16 +140,20 @@ def main():
     parser.add_argument('package', help='Package name.')
     args = parser.parse_args()
     package = args.package
+    version = None
+    if package.find(OP) >= 0:
+        package, version = package.split('==')
     try:
         package = normalise_package(package)
     except ValueError:
         parser.error('No such module or package %r' % package)
-    total = downloads_total(package)
+    total = downloads_total(package, version)
     if total != 0:
         print('%s has been downloaded %s times!'
               % (package, locale.format("%d", total, grouping=True)))
     else:
         print('No downloads for %s' % package)
+
 
 if __name__ == '__main__':
     main()
