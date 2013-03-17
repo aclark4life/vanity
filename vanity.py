@@ -24,6 +24,7 @@ View package download statistics from PyPI.
 # Based on https://github.com/collective/Products.PloneSoftwareCenter\
 # /blob/master/Products/PloneSoftwareCenter/pypi.py
 
+from __future__ import print_function
 from collections import deque
 try:
     from http.client import HTTPSConnection
@@ -68,12 +69,14 @@ def downloads_total(package, verbose=True, version=None):
             if verbose:
                 filename = url['filename']
                 downloads = url['downloads']
+                downloads = locale.format("%d", downloads, grouping=True)
+                longest = len(max(downloads, key=len))
                 upload_time = time.strftime(
                     '    %Y-%m-%d', url['upload_time'].timetuple())
                 if version == data['version'] or not version:
                     items.append(
-                        '%s %s    %9s' % (filename, upload_time, locale.format(
-                            "%d", downloads, grouping=True)))
+                        '%s %s %8s' % (
+                            filename, upload_time, downloads))
                     total += url['downloads']
 
     if verbose and items != []:
