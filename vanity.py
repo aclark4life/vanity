@@ -48,6 +48,8 @@ OP = '=='
 
 
 def by_two(source):
+    """
+    """
     out = []
     for x in source:
         out.append(x)
@@ -57,6 +59,8 @@ def by_two(source):
 
 
 def downloads_total(package, version, verbose=True):
+    """
+    """
     total = 0
     items = []
     for urls, data in release_data([package]):
@@ -89,6 +93,8 @@ def downloads_total(package, version, verbose=True):
 
 
 def normalise_package(name):
+    """
+    """
     http = HTTPSConnection('pypi.python.org')
     http.request('HEAD', '/simple/%s/' % name)
     r = http.getresponse()
@@ -98,6 +104,8 @@ def normalise_package(name):
 
 
 def package_releases(packages):
+    """
+    """
     mcall = xmlrpc.MultiCall(client)
     called_packages = deque()
     for package in packages:
@@ -114,6 +122,8 @@ def package_releases(packages):
 
 
 def release_data(packages):
+    """
+    """
     mcall = xmlrpc.MultiCall(client)
     i = 0
     for package, releases in package_releases(packages):

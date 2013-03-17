@@ -38,9 +38,9 @@ Usage
     Django has been downloaded 2,728,507 times!
 
 
-Or:: 
+Or specify a version:: 
 
-    $ vanity pillow=2.0.0
+    $ vanity pillow==2.0.0
                     Pillow-2.0.0.zip     2013-03-15    1,298
         Pillow-2.0.0.win32-py3.3.exe     2013-03-15       69
         Pillow-2.0.0.win32-py3.2.exe     2013-03-15       67
