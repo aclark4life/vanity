@@ -87,7 +87,6 @@ def downloads_total(package, verbose=True, version=None):
         for item in items:
             print(item.rjust(longest))
         print('-' * longest)
-
     # Don't break api
     return total
 
