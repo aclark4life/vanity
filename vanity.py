@@ -70,13 +70,12 @@ def downloads_total(package, verbose=True, version=None):
                 filename = url['filename']
                 downloads = url['downloads']
                 downloads = locale.format("%d", downloads, grouping=True)
-                longest = len(max(downloads, key=len))
-                upload_time = time.strftime(
-                    '    %Y-%m-%d', url['upload_time'].timetuple())
+                downloads_longest = len(max(downloads, key=len))
+                upload_time = url['upload_time'].timetuple()
+                uplaod_time = '%Y-%m-%d', time.strftime(upload_time)
                 if version == data['version'] or not version:
-                    items.append(
-                        '%s %s %8s' % (
-                            filename, upload_time, downloads))
+                    item = '%s %s %9s' % (filename, upload_time, downloads)
+                    items.append(item)
                     total += url['downloads']
     if verbose and items != []:
         items.reverse()
