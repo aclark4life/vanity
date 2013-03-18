@@ -1,6 +1,18 @@
 Changelog
 =========
 
+1.2.5 (2013-03-17)
+------------------
+
+- Switch to argparse 
+  [aclark]
+- Support query by version spec e.g. Pillow==2.0.0
+  [aclark]
+- Remove --quiet option
+  [aclark]
+- Officially add Python 3 support
+  [aclark]
+
 1.2.4 (2013-02-19)
 ------------------
 

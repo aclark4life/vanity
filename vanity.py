@@ -74,7 +74,8 @@ def downloads_total(package, verbose=True, version=None):
                 upload_time = url['upload_time'].timetuple()
                 upload_time = time.strftime(FMTSTR, upload_time)
                 if version == data['version'] or not version:
-                    item = '%s    %s    %9s' % (filename, upload_time, downloads)
+                    item = '%s    %s    %9s' % (
+                        filename, upload_time, downloads)
                     items.append(item)
                     total += url['downloads']
     if verbose and items != []:
@@ -84,7 +85,7 @@ def downloads_total(package, verbose=True, version=None):
         longest = len(max(items, key=len))
         for item in items:
             print(item.rjust(longest))
-        print('-' * longest) 
+        print('-' * longest)
     # Don't break api
     return total
 
