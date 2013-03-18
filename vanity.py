@@ -45,6 +45,7 @@ except locale.Error:
     pass
 
 
+FMTSTR = '%Y-%m-%d'
 OP = '=='
 
 
@@ -70,11 +71,10 @@ def downloads_total(package, verbose=True, version=None):
                 filename = url['filename']
                 downloads = url['downloads']
                 downloads = locale.format("%d", downloads, grouping=True)
-                downloads_longest = len(max(downloads, key=len))
                 upload_time = url['upload_time'].timetuple()
-                uplaod_time = '%Y-%m-%d', time.strftime(upload_time)
+                upload_time = time.strftime(FMTSTR, upload_time)
                 if version == data['version'] or not version:
-                    item = '%s %s %9s' % (filename, upload_time, downloads)
+                    item = '%s    %s    %9s' % (filename, upload_time, downloads)
                     items.append(item)
                     total += url['downloads']
     if verbose and items != []:
@@ -84,7 +84,7 @@ def downloads_total(package, verbose=True, version=None):
         longest = len(max(items, key=len))
         for item in items:
             print(item.rjust(longest))
-        print('-' * longest)
+        print('-' * longest) 
     # Don't break api
     return total
 
