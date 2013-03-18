@@ -78,7 +78,6 @@ def downloads_total(package, verbose=True, version=None):
                         '%s %s %8s' % (
                             filename, upload_time, downloads))
                     total += url['downloads']
-
     if verbose and items != []:
         items.reverse()
         # http://stackoverflow.com/questions/873327/\
