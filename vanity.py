@@ -67,17 +67,16 @@ def downloads_total(package, verbose=True, version=None):
     items = []
     for urls, data in release_data([package]):
         for url in urls:
-            if verbose:
-                filename = url['filename']
-                downloads = url['downloads']
-                downloads = locale.format("%d", downloads, grouping=True)
-                upload_time = url['upload_time'].timetuple()
-                upload_time = time.strftime(FORMAT, upload_time)
-                if version == data['version'] or not version:
-                    item = '%s    %s    %9s' % (
-                        filename, upload_time, downloads)
-                    items.append(item)
-                    total += url['downloads']
+            filename = url['filename']
+            downloads = url['downloads']
+            downloads = locale.format("%d", downloads, grouping=True)
+            upload_time = url['upload_time'].timetuple()
+            upload_time = time.strftime(FORMAT, upload_time)
+            if version == data['version'] or not version:
+                item = '%s    %s    %9s' % (
+                    filename, upload_time, downloads)
+                items.append(item)
+                total += url['downloads']
     if verbose and items != []:
         items.reverse()
         # http://stackoverflow.com/questions/873327/\
@@ -144,32 +143,45 @@ def vanity():
     Get package download statistics from PyPI.
     """
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('package', help='Package name.')
+    parser.add_argument('package', help='package name', nargs='+')
+    parser.add_argument('--quiet', help='verbosity', action='store_true')
     args = parser.parse_args()
-    package = args.package
+    packages = args.package
+    verbose = not(args.quiet)
     version = None
-    if package.find(OPERATOR) >= 0:
-        # Check for version spec
-        package, version = package.split('==')
-    try:
-        package = normalise_package(package)
-    except ValueError:
-        parser.error('No such module or package %r' % package)
-    total = downloads_total(package, version=version)
-    if total != 0:
-        if version:
-            print(
-                '%s %s has been downloaded %s times!' % (
-                package, version, locale.format("%d", total, grouping=True)))
+    grand_total = 0
+    package_list = []
+    for package in packages:
+        if package.find(OPERATOR) >= 0:
+            # Check for version spec
+            package, version = package.split('==')
+        try:
+            package = normalise_package(package)
+        except ValueError:
+            parser.error('No such module or package %r' % package)
+        total = downloads_total(package, version=version, verbose=verbose)
+        if total != 0:
+            if version:
+                print(
+                    '%s %s has been downloaded %s times!' % (
+                    package, version, locale.format(
+                        "%d", total, grouping=True)))
+            else:
+                print(
+                    '%s has been downloaded %s times!' % (
+                    package, locale.format("%d", total, grouping=True)))
         else:
-            print(
-                '%s has been downloaded %s times!' % (
-                package, locale.format("%d", total, grouping=True)))
-    else:
-        if version:
-            print('No downloads for %s %s.' % (package, version))
-        else:
-            print('No downloads for %s.' % package)
+            if version:
+                print('No downloads for %s %s.' % (package, version))
+            else:
+                print('No downloads for %s.' % package)
+        grand_total += total
+        package_list.append(package)
+    if len(package_list) > 1:
+        print(
+            "%s has been downloaded %s times!" % (
+                ', '.join(package_list), locale.format(
+                    "%d", grand_total, grouping=True)))
 
 
 if __name__ == '__main__':

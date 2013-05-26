@@ -2,17 +2,17 @@ from setuptools import setup
 import os
 
 
-VERSION = '1.2.5'
+VERSION = '2.0.0'
 
 
 setup(
     author='Alex Clark',
     author_email='aclark@aclark.net',
     classifiers=[
+        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3.3',
     ],
-    description='Easy access to package download statistics \
-        from the Python Package Index, via the command line',
+    description='Get package download statistics from PyPI',
     entry_points={
         'console_scripts': 'vanity=vanity:vanity',
     },

@@ -1,25 +1,25 @@
 Changelog
 =========
 
+2.0.0 (2013-05-26)
+------------------
+
+- Revert removal of --quiet option
+- Support multi-package entry e.g. $ vanity setuptools distribute
+
 1.2.5 (2013-03-17)
 ------------------
 
 - Switch to argparse 
-  [aclark]
-- Support query by version spec e.g. Pillow==2.0.0
-  [aclark]
+- Support query by version spec e.g. $ vanity pillow==2.0.0
 - Remove --quiet option
-  [aclark]
 - Officially add Python 3 support
-  [aclark]
 
 1.2.4 (2013-02-19)
 ------------------
 
-- Use https for PyPI now
-  [aclark]
+- Query PyPI via https
 - Return usage statement when no args passed
-  [aclark]
 
 1.2.3 (2012-08-08)
 ------------------
@@ -34,31 +34,22 @@ Changelog
 1.2.2 (2012-07-31)
 ------------------
 
-- Remove blessings for Windows compat
-  [aclark]
+- Remove blessings integration which breaks on Windows
 
 1.2.1 (2012-02-15)
 ------------------
 
 - Make verbose the default
-  [aclark]
 - Add ``blessings`` support to make output pretty
-  [aclark]
 - install_requires ``requests`` for future refactor
-  [aclark]
 - Enforce available command line options better
-  [aclark]
 
 1.2.0 (2012-01-30)
 ------------------
 
 - Add verbose option to display file name, upload date, and download count per release.
-  [aclark]
 - Add locale to format downloads e.g. "700,232 times" instead of "700232
   times".
-  [aclark]
-- Better handling of command line args and usage.
-  [aclark]
 
 1.1.2 (2011-10-28)
 ------------------
@@ -79,9 +70,6 @@ Changelog
   counting all release files (e.g. binaries in addition to sdist) and
   correct number of release files (bug fix).
   [JNRowe]
-
-- Package cleanup
-  [aclark]
 
 1.0 (04-13-2011)
 ------------------
