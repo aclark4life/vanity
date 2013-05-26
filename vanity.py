@@ -45,8 +45,8 @@ except locale.Error:
     pass
 
 
-FMTSTR = '%Y-%m-%d'
-OPER = '=='
+FORMAT = '%Y-%m-%d'
+OPERATOR = '=='
 
 
 def by_two(source):
@@ -72,7 +72,7 @@ def downloads_total(package, verbose=True, version=None):
                 downloads = url['downloads']
                 downloads = locale.format("%d", downloads, grouping=True)
                 upload_time = url['upload_time'].timetuple()
-                upload_time = time.strftime(FMTSTR, upload_time)
+                upload_time = time.strftime(FORMAT, upload_time)
                 if version == data['version'] or not version:
                     item = '%s    %s    %9s' % (
                         filename, upload_time, downloads)
@@ -148,7 +148,7 @@ def vanity():
     args = parser.parse_args()
     package = args.package
     version = None
-    if package.find(OPER) >= 0:
+    if package.find(OPERATOR) >= 0:
         # Check for version spec
         package, version = package.split('==')
     try:
