@@ -18,7 +18,7 @@
 ###############################################################################
 
 """
-View package download statistics from PyPI.
+Get package download statistics from PyPI.
 """
 
 # Based on https://github.com/collective/Products.PloneSoftwareCenter\
@@ -141,7 +141,7 @@ def release_data(packages):
 
 def vanity():
     """
-    View package download statistics from PyPI.
+    Get package download statistics from PyPI.
     """
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('package', help='Package name.')
