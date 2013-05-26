@@ -46,7 +46,7 @@ except locale.Error:
 
 
 FMTSTR = '%Y-%m-%d'
-OP = '=='
+OPER = '=='
 
 
 def by_two(source):
@@ -148,7 +148,8 @@ def vanity():
     args = parser.parse_args()
     package = args.package
     version = None
-    if package.find(OP) >= 0:
+    if package.find(OPER) >= 0:
+        # Check for version spec
         package, version = package.split('==')
     try:
         package = normalise_package(package)
