@@ -1,6 +1,11 @@
 Changelog
 =========
 
+2.0.1 (2013-05-27)
+------------------
+
+- End of life: http://mail.python.org/pipermail/distutils-sig/2013-May/020855.html
+
 2.0.0 (2013-05-26)
 ------------------
 

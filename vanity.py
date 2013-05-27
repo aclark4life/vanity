@@ -45,6 +45,15 @@ except locale.Error:
     pass
 
 
+EOL = """
+Note: PyPI now uses a CDN and the downloads API has been deprecated for the
+forseeable future. This, unfortunately, renders vanity useless for all but
+historical data. Please see:
+
+    - http://mail.python.org/pipermail/distutils-sig/2013-May/020855.html
+
+for more information. Thank you for using vanity.
+"""
 FORMAT = '%Y-%m-%d'
 OPERATOR = '=='
 
@@ -182,6 +191,9 @@ def vanity():
             "%s has been downloaded %s times!" % (
                 ', '.join(package_list), locale.format(
                     "%d", grand_total, grouping=True)))
+    print('-' * 80)
+    print(EOL)
+
 
 
 if __name__ == '__main__':

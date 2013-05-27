@@ -1,6 +1,8 @@
 Vanity
 ======
 
+.. Note:: PyPI now uses a CDN and the downloads API has been deprecated for the forseeable future. This, unfortunately, renders vanity useless for all but historical data. Please see: http://mail.python.org/pipermail/distutils-sig/2013-May/020855.html for more information.
+
 Get package download statistics from PyPI.
 
 Usage
