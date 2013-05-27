@@ -194,7 +194,5 @@ def vanity():
     print('-' * 80)
     print(EOL)
 
-
-
 if __name__ == '__main__':
     vanity()
