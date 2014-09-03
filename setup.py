@@ -2,7 +2,7 @@ from setuptools import setup
 import os
 
 
-VERSION = '2.0.3'
+VERSION = '2.0.4'
 
 
 setup(
@@ -21,8 +21,7 @@ setup(
     license='GPL',
     long_description=(
         open('README.rst').read() + '\n' + 
-        open(os.path.join('docs', 'HISTORY.txt')).read() + '\n' +
-        open(os.path.join('docs', 'CONTRIBUTORS.txt')).read()
+        open(os.path.join('CHANGES.rst')).read()
     ),
     name='vanity',
     py_modules=[

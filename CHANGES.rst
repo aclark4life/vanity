@@ -1,6 +1,11 @@
 Changelog
 =========
 
+2.0.4 (2014-09-02)
+------------------
+
+- Query /pypi/ instead of /simple/, fixes https://github.com/aclark4life/vanity/issues/12
+
 2.0.3 (2013-05-27)
 ------------------
 
@@ -89,5 +94,8 @@ Changelog
 1.0 (04-13-2011)
 ------------------
 
-- Initial release
+- Initial release. Based on code from `Products.PloneSoftwareCenter`_ by `David Glick`_.
   [aclark]
+                                                                                                                                           
+.. _`Products.PloneSoftwareCenter`: https://pypi.python.org/pypi/Products.PloneSoftwareCenter
+.. _`David Glick`: http://glicksoftware.com              
