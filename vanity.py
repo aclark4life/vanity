@@ -91,7 +91,7 @@ def normalise_package(name):
     """
     """
     http = HTTPSConnection('pypi.python.org')
-    http.request('HEAD', '/simple/%s/' % name)
+    http.request('HEAD', '/pypi/%s/' % name)
     r = http.getresponse()
     if r.status not in (200, 301):
         raise ValueError(r.reason)
