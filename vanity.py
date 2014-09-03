@@ -176,9 +176,12 @@ def vanity():
         grand_total += total
         package_list.append(package)
     if len(package_list) > 1:
+        # List packages like "a and b" or "a, b and c" or "a, b, c and d"
+        package_string = (', '.join(package_list[:-1]) + " and " +
+                          package_list[-1])
         print(
-            "%s has been downloaded %s times!" % (
-                ', '.join(package_list), locale.format(
+            "%s have been downloaded %s times!" % (
+                package_string, locale.format(
                     "%d", grand_total, grouping=True)))
 
 if __name__ == '__main__':

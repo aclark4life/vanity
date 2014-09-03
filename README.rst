@@ -38,7 +38,7 @@ Enter a package name::
     ----------------------------------------------
     Django has been downloaded 3,182,234 times!
 
-Or enter a package name with version specification:: 
+Or enter a package name with version specification::
 
     $ vanity pillow==2.0.0
                     Pillow-2.0.0.zip    2013-03-15       61,022
@@ -63,10 +63,10 @@ Or enter a package name with version specification::
 
 Or enter more than one package name::
 
-    $ bin/vanity --quiet setuptools distribute 
-    setuptools has been downloaded 9,181,047 times!
-    distribute has been downloaded 7,487,115 times!
-    setuptools, distribute has been downloaded 16,668,162 times!
+    $ bin/vanity --quiet setuptools distribute
+    setuptools has been downloaded 34,601,114 times!
+    distribute has been downloaded 29,661,287 times!
+    setuptools and distribute have been downloaded 64,262,401 times!
 
 Installation
 ------------
@@ -79,6 +79,6 @@ Or::
 
     $ easy_install vanity
 
-Or download the compressed archive, extract it, and inside it run:: 
+Or download the compressed archive, extract it, and inside it run::
 
     $ python setup.py install
