@@ -1,8 +1,6 @@
 Vanity
 ======
 
-.. Note:: PyPI now uses a CDN and the new downloads API is in development: http://mail.python.org/pipermail/distutils-sig/2013-June/021344.html. Results may vary until the API stablizes.
-
 Get package download statistics from PyPI.
 
 Usage
