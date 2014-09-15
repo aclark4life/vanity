@@ -142,7 +142,7 @@ def vanity():
     """
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('package', help='package name', nargs='+')
-    parser.add_argument('--quiet', help='verbosity', action='store_true')
+    parser.add_argument('-q', '--quiet', help='verbosity', action='store_true')
     args = parser.parse_args()
     packages = args.package
     verbose = not(args.quiet)
@@ -161,13 +161,13 @@ def vanity():
         if total != 0:
             if version:
                 print(
-                    '%s %s has been downloaded %s times!' % (
-                    package, version, locale.format(
+                    '%s %s has been downloaded %s times!' %
+                    (package, version, locale.format(
                         "%d", total, grouping=True)))
             else:
                 print(
-                    '%s has been downloaded %s times!' % (
-                    package, locale.format("%d", total, grouping=True)))
+                    '%s has been downloaded %s times!' %
+                    (package, locale.format("%d", total, grouping=True)))
         else:
             if version:
                 print('No downloads for %s %s.' % (package, version))

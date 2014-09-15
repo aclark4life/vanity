@@ -1,0 +1,39 @@
+language: python
+
+python:
+  - pypy
+  - pypy3
+  - 2.6
+  - 2.7
+  - 2.7_with_system_site_packages
+  - 3.2
+  - 3.3
+  - 3.4
+
+install:
+  - python setup.py install
+  - travis_retry pip install coverage
+  - coverage erase
+
+script:
+  # Simple tests: just run some example commands with options
+  - coverage run --append --include=./* vanity.py -h
+  - coverage run --append --include=./* vanity.py --help
+  - coverage run --append --include=./* vanity.py vanity pillow
+  - coverage run --append --include=./* vanity.py vanity pillow -q
+  - coverage run --append --include=./* vanity.py --quiet vanity pillow
+  - coverage run --append --include=./* vanity.py pil
+  - coverage run --append --include=./* vanity.py vanity==0.0.0
+  - coverage run --append --include=./* vanity.py vanity==1.0
+
+after_success:
+  - coverage report
+  - travis_retry pip install coveralls
+  - coveralls
+
+  - travis_retry pip install pep8 pyflakes
+  - pep8 --statistics --count *.py
+  - pyflakes *.py | tee >(wc -l)
+
+matrix:
+  fast_finish: true
