@@ -17,11 +17,12 @@ install:
 
 script:
   # Simple tests: just run some example commands with options
-  - coverage run --append vanity.py -h
-  - coverage run --append vanity.py --help
-  - coverage run --append vanity.py vanity pillow
-  - coverage run --append vanity.py vanity pillow -q
-  - coverage run --append vanity.py --quiet vanity pillow
+  - coverage run --append --include=./* vanity.py -h
+  - coverage run --append --include=./* vanity.py --help
+  - coverage run --append --include=./* vanity.py vanity pillow
+  - coverage run --append --include=./* vanity.py vanity pillow -q
+  - coverage run --append --include=./* vanity.py --quiet vanity pillow
+  - coverage run --append --include=./* vanity.py vanity==1.0
 
 after_success:
   - coverage report
