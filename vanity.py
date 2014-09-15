@@ -142,7 +142,7 @@ def vanity():
     """
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('package', help='package name', nargs='+')
-    parser.add_argument('--quiet', help='verbosity', action='store_true')
+    parser.add_argument('-q', '--quiet', help='verbosity', action='store_true')
     args = parser.parse_args()
     packages = args.package
     verbose = not(args.quiet)
