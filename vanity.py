@@ -161,13 +161,13 @@ def vanity():
         if total != 0:
             if version:
                 print(
-                    '%s %s has been downloaded %s times!' % (
-                    package, version, locale.format(
+                    '%s %s has been downloaded %s times!' %
+                    (package, version, locale.format(
                         "%d", total, grouping=True)))
             else:
                 print(
-                    '%s has been downloaded %s times!' % (
-                    package, locale.format("%d", total, grouping=True)))
+                    '%s has been downloaded %s times!' %
+                    (package, locale.format("%d", total, grouping=True)))
         else:
             if version:
                 print('No downloads for %s %s.' % (package, version))

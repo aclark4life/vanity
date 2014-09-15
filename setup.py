@@ -9,8 +9,13 @@ setup(
     author='Alex Clark',
     author_email='aclark@aclark.net',
     classifiers=[
+        'Programming Language :: Python :: 2',
+        'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.2',
         'Programming Language :: Python :: 3.3',
+        'Programming Language :: Python :: 3.4',
     ],
     description='Get package download statistics from PyPI',
     entry_points={
@@ -20,7 +25,7 @@ setup(
     keywords='analytics python package index statistics',
     license='GPL',
     long_description=(
-        open('README.rst').read() + '\n' + 
+        open('README.rst').read() + '\n' +
         open(os.path.join('CHANGES.rst')).read()
     ),
     name='vanity',
