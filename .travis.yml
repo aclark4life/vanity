@@ -22,6 +22,8 @@ script:
   - coverage run --append --include=./* vanity.py vanity pillow
   - coverage run --append --include=./* vanity.py vanity pillow -q
   - coverage run --append --include=./* vanity.py --quiet vanity pillow
+  - coverage run --append --include=./* vanity.py pil
+  - coverage run --append --include=./* vanity.py vanity==0.0.0
   - coverage run --append --include=./* vanity.py vanity==1.0
 
 after_success:
