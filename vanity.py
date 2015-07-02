@@ -24,7 +24,6 @@ Get package download statistics from PyPI.
 # Based on https://github.com/collective/Products.PloneSoftwareCenter\
 # /blob/master/Products/PloneSoftwareCenter/pypi.py
 
-from __future__ import print_function
 from collections import deque
 try:
     from http.client import HTTPSConnection
@@ -32,6 +31,7 @@ except ImportError:
     from httplib import HTTPSConnection
 import argparse
 import locale
+import logging
 import time
 try:
     import xmlrpc.client as xmlrpc
@@ -45,6 +45,16 @@ except locale.Error:
     pass
 FORMAT = '%Y-%m-%d'
 OPERATOR = '=='
+
+
+# https://docs.python.org/3/howto/logging.html
+logger = logging.getLogger('vanity')
+logger.setLevel(logging.DEBUG)
+ch = logging.StreamHandler()
+ch.setLevel(logging.DEBUG)
+formatter = logging.Formatter('%(message)s')
+ch.setFormatter(formatter)
+logger.addHandler(ch)
 
 
 def by_two(source):
@@ -81,8 +91,8 @@ def downloads_total(package, verbose=True, version=None):
         # pythons-most-efficient-way-to-choose-longest-string-in-list
         longest = len(max(items, key=len))
         for item in items:
-            print(item.rjust(longest))
-        print('-' * longest)
+            logger.debug(item.rjust(longest))
+        logger.debug('-' * longest)
     # Don't break api
     return total
 
@@ -160,26 +170,26 @@ def vanity():
         total = downloads_total(package, version=version, verbose=verbose)
         if total != 0:
             if version:
-                print(
+                logger.debug(
                     '%s %s has been downloaded %s times!' %
                     (package, version, locale.format(
                         "%d", total, grouping=True)))
             else:
-                print(
+                logger.debug(
                     '%s has been downloaded %s times!' %
                     (package, locale.format("%d", total, grouping=True)))
         else:
             if version:
-                print('No downloads for %s %s.' % (package, version))
+                logger.debug('No downloads for %s %s.' % (package, version))
             else:
-                print('No downloads for %s.' % package)
+                logger.debug('No downloads for %s.' % package)
         grand_total += total
         package_list.append(package)
     if len(package_list) > 1:
         # List packages like "a and b" or "a, b and c" or "a, b, c and d"
         package_string = (', '.join(package_list[:-1]) + " and " +
                           package_list[-1])
-        print(
+        logger.debug(
             "%s have been downloaded %s times!" % (
                 package_string, locale.format(
                     "%d", grand_total, grouping=True)))
