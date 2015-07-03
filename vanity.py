@@ -24,14 +24,22 @@ Get package download statistics from PyPI
 # /commit/601558870175e35cfa4d05fb309859e580271a1f
 
 from collections import deque
+
+# normalize function HTTPSConnection
+
 try:
     from http.client import HTTPSConnection
 except ImportError:
     from httplib import HTTPSConnection
+
 import argparse
 import locale
 import logging
 import time
+
+# PyPI's XML-RPC methods
+# https://wiki.python.org/moin/PyPIXmlRpc
+
 try:
     import xmlrpc.client as xmlrpc
 except ImportError:  # Python 2
@@ -45,8 +53,9 @@ except locale.Error:
 FORMAT = '%Y-%m-%d'
 OPERATOR = '=='
 
-
+# Logger
 # https://docs.python.org/3/howto/logging.html
+
 logger = logging.getLogger('vanity')
 logger.setLevel(logging.DEBUG)
 ch = logging.StreamHandler()
@@ -147,7 +156,7 @@ def release_data(packages):
 
 def vanity():
     """
-    Get package download statistics from PyPI.
+    Get package download statistics from PyPI
     """
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('package', help='package name', nargs='+')
