@@ -47,13 +47,13 @@ except ImportError:  # Python 2
 
 PYPI_XML = xmlrpc.ServerProxy('https://pypi.python.org/pypi')
 
+# Print numbers with commas
+# http://stackoverflow.com/a/1823101
+
 try:
     locale.setlocale(locale.LC_ALL, 'en_US')
 except locale.Error:
     pass
-
-FORMAT = '%Y-%m-%d'
-OPERATOR = '=='
 
 # Logger
 # https://docs.python.org/3/howto/logging.html
@@ -89,7 +89,7 @@ def downloads_total(package, verbose=True, version=None):
             downloads = url['downloads']
             downloads = locale.format("%d", downloads, grouping=True)
             upload_time = url['upload_time'].timetuple()
-            upload_time = time.strftime(FORMAT, upload_time)
+            upload_time = time.strftime('%Y-%m-%d', upload_time)
             if version == data['version'] or not version:
                 item = '%s    %s    %9s' % (
                     filename, upload_time, downloads)
@@ -170,7 +170,7 @@ def vanity():
     grand_total = 0
     package_list = []
     for package in packages:
-        if package.find(OPERATOR) >= 0:
+        if package.find('==') >= 0:
             # Check for version spec
             package, version = package.split('==')
         try:
