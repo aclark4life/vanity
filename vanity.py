@@ -97,7 +97,7 @@ def count_downloads(package, verbose=True, version=None, protocol=None):
     """
     count = 0
     items = []
-    for urls, data in release_data([package], protocol=protocol):
+    for urls, data in get_release_info([package], protocol=protocol):
         for url in urls:
             filename = url['filename']
             downloads = url['downloads']
@@ -163,7 +163,7 @@ def package_releases(packages):
         yield called_packages.popleft(), releases
 
 
-def release_data(packages, protocol=None):
+def get_release_info(packages, protocol=None):
     """
     """
     if protocol:
