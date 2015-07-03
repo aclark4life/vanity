@@ -71,7 +71,7 @@ ch.setFormatter(formatter)
 logger.addHandler(ch)
 
 # PyPI JSON
-# http://stackoverflow.com/a/28786650, https://wiki.python.org/moin/PyPIJSON
+# http://stackoverflow.com/a/28786650
 
 try:
     # For Python 3.0 and later
