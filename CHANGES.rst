@@ -4,7 +4,7 @@ Changelog
 2.1.0 (2015-07-03)
 ------------------
 
-- Support PyPI JSON API
+- Use PyPI JSON API via ``--json``
 - Replace print with logging
 
 2.0.4 (2014-09-02)
