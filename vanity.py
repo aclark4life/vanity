@@ -106,13 +106,13 @@ def downloads_total(package, verbose=True, version=None, protocol=None):
                 upload_time = url['upload_time'].timetuple()
                 upload_time = time.strftime('%Y-%m-%d', upload_time)
             else:
-                upload_time = '<upload_time>'
+                # Convert 2011-04-14T02:16:55 to 2011-04-14
+                upload_time = url['upload_time'].split('T')[0]
             if version == data['version'] or not version:
                 item = '%s    %s    %9s' % (
                     filename, upload_time, downloads)
                 items.append(item)
                 total += url['downloads']
-
     if verbose and items != []:
         items.reverse()
         # http://stackoverflow.com/questions/873327/\
