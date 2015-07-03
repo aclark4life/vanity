@@ -124,11 +124,11 @@ def downloads_total(package, verbose=True, version=None, protocol=None):
     return total
 
 
+# http://stackoverflow.com/a/28786650
 def get_jsonparsed_data(url):
     """Receive the content of ``url``, parse it as JSON and return the
        object.
     """
-    # http://stackoverflow.com/a/28786650
     response = urlopen(url)
     data = str(response.read())
     return json.loads(data)
