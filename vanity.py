@@ -33,6 +33,7 @@ except ImportError:
     from httplib import HTTPSConnection
 
 import argparse
+import json
 import locale
 import logging
 import time
@@ -45,7 +46,10 @@ try:
 except ImportError:  # Python 2
     import xmlrpclib as xmlrpc
 
-PYPI_XML = xmlrpc.ServerProxy('https://pypi.python.org/pypi')
+PYPI_HOST = 'pypi.python.org'
+PYPI_URL = 'https://%s/pypi' % PYPI_HOST
+PYPI_JSON = '/'.join([PYPI_URL, '%s/json'])
+PYPI_XML = xmlrpc.ServerProxy(PYPI_URL)
 
 # Print numbers with commas
 # http://stackoverflow.com/a/1823101
@@ -65,6 +69,16 @@ ch.setLevel(logging.DEBUG)
 formatter = logging.Formatter('%(message)s')
 ch.setFormatter(formatter)
 logger.addHandler(ch)
+
+# PyPI JSON
+# http://stackoverflow.com/a/28786650, https://wiki.python.org/moin/PyPIJSON
+
+try:
+    # For Python 3.0 and later
+    from urllib.request import urlopen
+except ImportError:
+    # Fall back to Python 2's urllib2
+    from urllib2 import urlopen
 
 
 def by_two(source):
@@ -107,10 +121,20 @@ def downloads_total(package, verbose=True, version=None):
     return total
 
 
+def get_jsonparsed_data(url):
+    """Receive the content of ``url``, parse it as JSON and return the
+       object.
+    """
+    # http://stackoverflow.com/a/28786650
+    response = urlopen(url)
+    data = str(response.read())
+    return json.loads(data)
+
+
 def normalize(name):
     """
     """
-    http = HTTPSConnection('pypi.python.org')
+    http = HTTPSConnection(PYPI_HOST)
     http.request('HEAD', '/pypi/%s/' % name)
     r = http.getresponse()
     if r.status not in (200, 301):
@@ -141,7 +165,12 @@ def release_data(packages):
     """
     mcall = xmlrpc.MultiCall(PYPI_XML)
     i = 0
+
     for package, releases in package_releases(packages):
+
+        jsondata = get_jsonparsed_data(PYPI_JSON % package)
+        import pdb ; pdb.set_trace()
+
         for version in releases:
             mcall.release_urls(package, version)
             mcall.release_data(package, version)
