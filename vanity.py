@@ -92,7 +92,7 @@ def by_two(source):
             out = []
 
 
-def downloads_total(package, verbose=True, version=None, protocol=None):
+def count_downloads(package, verbose=True, version=None, protocol=None):
     """
     """
     total = 0
@@ -221,11 +221,14 @@ def vanity():
             package = normalize(package)
         except ValueError:
             parser.error('No such module or package %r' % package)
-        total = downloads_total(
+
+        # Count downloads
+        total = count_downloads(
             package,
             protocol=protocol,
             version=version,
             verbose=verbose)
+
         if total != 0:
             if version:
                 logger.debug(
