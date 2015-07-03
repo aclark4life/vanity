@@ -166,19 +166,18 @@ def package_releases(packages):
 def release_data(packages, protocol=None):
     """
     """
-
     if protocol:
         for package in packages:
             data = get_jsonparsed_data(PYPI_JSON % package)
             for release in data['releases']:
                 urls = data['releases'][release]
                 yield urls, data['info']
+        return
 
     mcall = xmlrpc.MultiCall(PYPI_XML)
 
     i = 0
     for package, releases in package_releases(packages):
-
         for version in releases:
             mcall.release_urls(package, version)
             mcall.release_data(package, version)
