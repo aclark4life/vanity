@@ -92,17 +92,17 @@ def by_two(source):
             out = []
 
 
-def count_downloads(package, verbose=True, version=None, protocol=None):
+def count_downloads(package, verbose=True, version=None, json=False):
     """
     """
     count = 0
     items = []
-    for urls, data in get_release_info([package], protocol=protocol):
+    for urls, data in get_release_info([package], json=json):
         for url in urls:
             filename = url['filename']
             downloads = url['downloads']
             downloads = locale.format("%d", downloads, grouping=True)
-            if not protocol:
+            if not json:
                 upload_time = url['upload_time'].timetuple()
                 upload_time = time.strftime('%Y-%m-%d', upload_time)
             else:
@@ -163,10 +163,10 @@ def package_releases(packages):
         yield called_packages.popleft(), releases
 
 
-def get_release_info(packages, protocol=None):
+def get_release_info(packages, json=False):
     """
     """
-    if protocol:
+    if json:
         for package in packages:
             data = get_jsonparsed_data(PYPI_JSON % package)
             for release in data['releases']:
@@ -213,7 +213,7 @@ def vanity():
     version = None
     grand_total = 0
     package_list = []
-    protocol = args.json
+    json = args.json
     for package in packages:
         if package.find('==') >= 0:
             package, version = package.split('==')
@@ -225,7 +225,7 @@ def vanity():
         # Count downloads
         total = count_downloads(
             package,
-            protocol=protocol,
+            json=json,
             version=version,
             verbose=verbose)
 
