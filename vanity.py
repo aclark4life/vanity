@@ -45,11 +45,13 @@ try:
 except ImportError:  # Python 2
     import xmlrpclib as xmlrpc
 
-client = xmlrpc.ServerProxy('https://pypi.python.org/pypi')
+PYPI_XML = xmlrpc.ServerProxy('https://pypi.python.org/pypi')
+
 try:
     locale.setlocale(locale.LC_ALL, 'en_US')
 except locale.Error:
     pass
+
 FORMAT = '%Y-%m-%d'
 OPERATOR = '=='
 
@@ -119,14 +121,14 @@ def normalize(name):
 def package_releases(packages):
     """
     """
-    mcall = xmlrpc.MultiCall(client)
+    mcall = xmlrpc.MultiCall(PYPI_XML)
     called_packages = deque()
     for package in packages:
         mcall.package_releases(package, True)
         called_packages.append(package)
         if len(called_packages) == 100:
             result = mcall()
-            mcall = xmlrpc.MultiCall(client)
+            mcall = xmlrpc.MultiCall(PYPI_XML)
             for releases in result:
                 yield called_packages.popleft(), releases
     result = mcall()
@@ -137,7 +139,7 @@ def package_releases(packages):
 def release_data(packages):
     """
     """
-    mcall = xmlrpc.MultiCall(client)
+    mcall = xmlrpc.MultiCall(PYPI_XML)
     i = 0
     for package, releases in package_releases(packages):
         for version in releases:
@@ -146,7 +148,7 @@ def release_data(packages):
             i += 1
             if i % 50 == 49:
                 result = mcall()
-                mcall = xmlrpc.MultiCall(client)
+                mcall = xmlrpc.MultiCall(PYPI_XML)
                 for urls, data in by_two(result):
                     yield urls, data
     result = mcall()
