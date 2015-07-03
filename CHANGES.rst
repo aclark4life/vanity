@@ -66,8 +66,8 @@ Changelog
 ------------------
 
 - Make verbose the default
-- Add ``blessings`` support to make output pretty
-- install_requires ``requests`` for future refactor
+- Add blessings support to make output pretty
+- install_requires requests for future refactor
 - Enforce available command line options better
 
 1.2.0 (2012-01-30)
