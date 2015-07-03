@@ -121,7 +121,6 @@ def downloads_total(package, verbose=True, version=None, protocol=None):
         for item in items:
             logger.debug(item.rjust(longest))
         logger.debug('-' * longest)
-    # Don't break api
     return total
 
 
