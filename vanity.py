@@ -36,7 +36,7 @@ import argparse
 import json
 import locale
 import logging
-# import time
+import time
 
 # PyPI's XML-RPC methods
 # https://wiki.python.org/moin/PyPIXmlRpc
@@ -92,24 +92,24 @@ def by_two(source):
             out = []
 
 
-def downloads_total(package, verbose=True, version=None):
+def downloads_total(package, verbose=True, version=None, protocol=None):
     """
     """
     total = 0
     items = []
-    for urls, data in release_data([package]):
+    for urls, data in release_data([package], protocol=protocol):
         for url in urls:
             filename = url['filename']
             downloads = url['downloads']
             downloads = locale.format("%d", downloads, grouping=True)
-
-            # upload_time = url['upload_time'].timetuple()
-            # upload_time = time.strftime('%Y-%m-%d', upload_time)
-
+            if not protocol:
+                upload_time = url['upload_time'].timetuple()
+                upload_time = time.strftime('%Y-%m-%d', upload_time)
+            else:
+                upload_time = '<upload_time>'
             if version == data['version'] or not version:
                 item = '%s    %s    %9s' % (
-                    # filename, upload_time, downloads)
-                    filename, '<upload_time>', downloads)
+                    filename, upload_time, downloads)
                 items.append(item)
                 total += url['downloads']
 
@@ -164,11 +164,11 @@ def package_releases(packages):
         yield called_packages.popleft(), releases
 
 
-def release_data(packages, protocol='json'):
+def release_data(packages, protocol=None):
     """
     """
 
-    if protocol == 'json':
+    if protocol:
         for package in packages:
             data = get_jsonparsed_data(PYPI_JSON % package)
             for release in data['releases']:
@@ -199,14 +199,23 @@ def vanity():
     """
     """
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('package', help='package name', nargs='+')
-    parser.add_argument('-q', '--quiet', help='verbosity', action='store_true')
+    parser.add_argument('package', help='pypi package name', nargs='+')
+    parser.add_argument(
+        '-q',
+        '--quiet',
+        help='only show total downloads',
+        action='store_true')
+    parser.add_argument(
+        '-j',
+        '--json',
+        help='use pypi json api instead of xmlrpc', action='store_true')
     args = parser.parse_args()
     packages = args.package
     verbose = not(args.quiet)
     version = None
     grand_total = 0
     package_list = []
+    protocol = args.json
     for package in packages:
         if package.find('==') >= 0:
             # Check for version spec
@@ -215,7 +224,11 @@ def vanity():
             package = normalize(package)
         except ValueError:
             parser.error('No such module or package %r' % package)
-        total = downloads_total(package, version=version, verbose=verbose)
+        total = downloads_total(
+            package,
+            protocol=protocol,
+            version=version,
+            verbose=verbose)
         if total != 0:
             if version:
                 logger.debug(
