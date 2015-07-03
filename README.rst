@@ -1,7 +1,7 @@
 Vanity
 ======
 
-Get package download statistics from PyPI.
+Get package download statistics from PyPI
 
 .. 
     .. image:: https://travis-ci.org/aclark4life/vanity.svg
@@ -27,7 +27,7 @@ Get package download statistics from PyPI.
 Usage
 -----
 
-Enter a package name::
+Enter package name::
 
     $ vanity django
     Django-1.1.3.tar.gz    2010-12-23        4,938
@@ -59,7 +59,7 @@ Enter a package name::
     ----------------------------------------------
     Django has been downloaded 3,182,234 times!
 
-Or enter a package name with version specification::
+Enter package name with version::
 
     $ vanity pillow==2.0.0
                     Pillow-2.0.0.zip    2013-03-15       61,022
@@ -82,7 +82,7 @@ Or enter a package name with version specification::
     -----------------------------------------------------------
     Pillow 2.0.0 has been downloaded 69,098 times!
 
-Or enter more than one package name::
+Enter multiple package names::
 
     $ bin/vanity --quiet setuptools distribute
     setuptools has been downloaded 34,601,114 times!
@@ -92,14 +92,6 @@ Or enter more than one package name::
 Installation
 ------------
 
-Install via::
+::
 
     $ pip install vanity
-
-Or::
-
-    $ easy_install vanity
-
-Or download the compressed archive, extract it, and inside it run::
-
-    $ python setup.py install
