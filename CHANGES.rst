@@ -91,15 +91,13 @@ Changelog
 1.1.0 (2011-10-25)
 ------------------
 
-- Bug fixes: support for case insensitive project names and support for
-  counting all release files (e.g. binaries in addition to sdist) and
-  correct number of release files (bug fix).
+- Bug fixes: support for case insensitive project names and support for counting all release files (e.g. binaries in addition to sdist) and correct number of release files
   [JNRowe]
 
 1.0 (04-13-2011)
-------------------
+----------------
 
-- Initial release based on code from `Products.PloneSoftwareCenter`_ by `David Glick`_.
+- Initial release based on code from `Products.PloneSoftwareCenter`_ by `David Glick`_
                                                                                                                                            
 .. _`Products.PloneSoftwareCenter`: https://pypi.python.org/pypi/Products.PloneSoftwareCenter
 .. _`David Glick`: http://glicksoftware.com
