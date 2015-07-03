@@ -30,7 +30,7 @@ Changelog
 2.0.0 (2013-05-26)
 ------------------
 
-- Revert removal of --quiet option
+- Revert removal of ``--quiet`` option
 - Support multi-package entry e.g. ``$ vanity setuptools distribute``
 
 1.2.5 (2013-03-17)
@@ -38,7 +38,7 @@ Changelog
 
 - Switch to argparse 
 - Support query by version spec e.g. ``$ vanity pillow==2.0.0``
-- Remove --quiet option
+- Remove ``--quiet`` option
 - Officially add Python 3 support
 
 1.2.4 (2013-02-19)
