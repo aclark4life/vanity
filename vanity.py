@@ -218,7 +218,6 @@ def vanity():
     protocol = args.json
     for package in packages:
         if package.find('==') >= 0:
-            # Check for version spec
             package, version = package.split('==')
         try:
             package = normalize(package)
