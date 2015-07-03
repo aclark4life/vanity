@@ -158,7 +158,6 @@ def release_data(packages):
 
 def vanity():
     """
-    Get package download statistics from PyPI
     """
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('package', help='package name', nargs='+')
