@@ -36,7 +36,7 @@ import argparse
 import json
 import locale
 import logging
-import time
+# import time
 
 # PyPI's XML-RPC methods
 # https://wiki.python.org/moin/PyPIXmlRpc
@@ -102,13 +102,17 @@ def downloads_total(package, verbose=True, version=None):
             filename = url['filename']
             downloads = url['downloads']
             downloads = locale.format("%d", downloads, grouping=True)
-            upload_time = url['upload_time'].timetuple()
-            upload_time = time.strftime('%Y-%m-%d', upload_time)
+
+            # upload_time = url['upload_time'].timetuple()
+            # upload_time = time.strftime('%Y-%m-%d', upload_time)
+
             if version == data['version'] or not version:
                 item = '%s    %s    %9s' % (
-                    filename, upload_time, downloads)
+                    # filename, upload_time, downloads)
+                    filename, '<upload_time>', downloads)
                 items.append(item)
                 total += url['downloads']
+
     if verbose and items != []:
         items.reverse()
         # http://stackoverflow.com/questions/873327/\
@@ -160,16 +164,21 @@ def package_releases(packages):
         yield called_packages.popleft(), releases
 
 
-def release_data(packages):
+def release_data(packages, protocol='json'):
     """
     """
+
+    if protocol == 'json':
+        for package in packages:
+            data = get_jsonparsed_data(PYPI_JSON % package)
+            for release in data['releases']:
+                urls = data['releases'][release]
+                yield urls, data['info']
+
     mcall = xmlrpc.MultiCall(PYPI_XML)
+
     i = 0
-
     for package, releases in package_releases(packages):
-
-        jsondata = get_jsonparsed_data(PYPI_JSON % package)
-        import pdb ; pdb.set_trace()
 
         for version in releases:
             mcall.release_urls(package, version)
@@ -180,6 +189,7 @@ def release_data(packages):
                 mcall = xmlrpc.MultiCall(PYPI_XML)
                 for urls, data in by_two(result):
                     yield urls, data
+
     result = mcall()
     for urls, data in by_two(result):
         yield urls, data
