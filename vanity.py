@@ -25,7 +25,7 @@ Get package download statistics from PyPI
 
 from collections import deque
 
-# normalize function HTTPSConnection
+# HTTPS connection for normalize function
 
 try:
     from http.client import HTTPSConnection
