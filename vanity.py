@@ -195,7 +195,6 @@ def vanity():
         grand_total += total
         package_list.append(package)
     if len(package_list) > 1:
-        # List packages like "a and b" or "a, b and c" or "a, b, c and d"
         package_string = (', '.join(package_list[:-1]) + " and " +
                           package_list[-1])
         logger.debug(
