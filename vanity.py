@@ -105,7 +105,7 @@ def downloads_total(package, verbose=True, version=None):
     return total
 
 
-def normalise_package(name):
+def normalize(name):
     """
     """
     http = HTTPSConnection('pypi.python.org')
@@ -172,7 +172,7 @@ def vanity():
             # Check for version spec
             package, version = package.split('==')
         try:
-            package = normalise_package(package)
+            package = normalize(package)
         except ValueError:
             parser.error('No such module or package %r' % package)
         total = downloads_total(package, version=version, verbose=verbose)
