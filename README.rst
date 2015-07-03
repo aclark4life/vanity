@@ -24,6 +24,13 @@ Get package download statistics from PyPI
        :target: https://landscape.io/github/aclark4life/vanity/master
        :alt: Code health
 
+Installation
+------------
+
+::
+
+    $ pip install vanity
+
 Usage
 -----
 
@@ -88,10 +95,3 @@ Enter multiple package names::
     setuptools has been downloaded 34,601,114 times!
     distribute has been downloaded 29,661,287 times!
     setuptools and distribute have been downloaded 64,262,401 times!
-
-Installation
-------------
-
-::
-
-    $ pip install vanity
