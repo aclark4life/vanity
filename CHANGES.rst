@@ -50,11 +50,11 @@ Changelog
 1.2.3 (2012-08-08)
 ------------------
 
-- Use optparse for option and argument parsing.
+- Use optparse for option and argument parsing
   [JNRowe]
-- Don't fail when the en_US locale isn't available.
+- Don't fail when the en_US locale isn't available
   [JNRowe]
-- Python 3 compatibility.
+- Python 3 compatibility
   [JNRowe]
 
 1.2.2 (2012-07-31)
@@ -73,20 +73,19 @@ Changelog
 1.2.0 (2012-01-30)
 ------------------
 
-- Add verbose option to display file name, upload date, and download count per release.
-- Add locale to format downloads e.g. "700,232 times" instead of "700232
-  times".
+- Add verbose option to display file name, upload date, and download count per release
+- Add locale to format downloads e.g. ``700,232 times`` instead of ``700232 times``
 
 1.1.2 (2011-10-28)
 ------------------
 
-- Fix regression: Re-fix download counts.
+- Fix regression: Re-fix download counts
   [JNRowe]
 
 1.1.1 (2011-10-27)
 ------------------
 
-- Refactor: create ``downloads_total`` function to make external use simpler.
+- Refactor: create ``downloads_total`` function to make external use simpler
   [kennethreitz]
 
 1.1.0 (2011-10-25)
@@ -100,8 +99,7 @@ Changelog
 1.0 (04-13-2011)
 ------------------
 
-- Initial release. Based on code from `Products.PloneSoftwareCenter`_ by `David Glick`_.
-  [aclark]
+- Initial release based on code from `Products.PloneSoftwareCenter`_ by `David Glick`_.
                                                                                                                                            
 .. _`Products.PloneSoftwareCenter`: https://pypi.python.org/pypi/Products.PloneSoftwareCenter
-.. _`David Glick`: http://glicksoftware.com              
+.. _`David Glick`: http://glicksoftware.com
