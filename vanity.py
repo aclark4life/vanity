@@ -145,7 +145,7 @@ def normalize(name):
     return r.getheader('location', name).split('/')[-1]
 
 
-def package_releases(packages):
+def get_releases(packages):
     """
     """
     mcall = xmlrpc.MultiCall(PYPI_XML)
@@ -177,7 +177,7 @@ def get_release_info(packages, json=False):
     mcall = xmlrpc.MultiCall(PYPI_XML)
 
     i = 0
-    for package, releases in package_releases(packages):
+    for package, releases in get_releases(packages):
         for version in releases:
             mcall.release_urls(package, version)
             mcall.release_data(package, version)
