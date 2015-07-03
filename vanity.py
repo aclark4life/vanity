@@ -95,7 +95,7 @@ def by_two(source):
 def count_downloads(package, verbose=True, version=None, protocol=None):
     """
     """
-    total = 0
+    count = 0
     items = []
     for urls, data in release_data([package], protocol=protocol):
         for url in urls:
@@ -112,7 +112,7 @@ def count_downloads(package, verbose=True, version=None, protocol=None):
                 item = '%s    %s    %9s' % (
                     filename, upload_time, downloads)
                 items.append(item)
-                total += url['downloads']
+                count += url['downloads']
     if verbose and items != []:
         items.reverse()
         # http://stackoverflow.com/questions/873327/\
@@ -121,7 +121,7 @@ def count_downloads(package, verbose=True, version=None, protocol=None):
         for item in items:
             logger.debug(item.rjust(longest))
         logger.debug('-' * longest)
-    return total
+    return count
 
 
 # http://stackoverflow.com/a/28786650
