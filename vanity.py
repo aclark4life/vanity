@@ -38,6 +38,7 @@ import argparse
 import json
 import locale
 import logging
+import re
 import time
 
 # PyPI's XML-RPC methods
@@ -94,7 +95,8 @@ def by_two(source):
             out = []
 
 
-def count_downloads(package, verbose=True, version=None, json=False):
+def count_downloads(package, verbose=True, version=None, json=False,
+                    pattern=None):
     """
     """
     count = 0
@@ -102,6 +104,8 @@ def count_downloads(package, verbose=True, version=None, json=False):
     for urls, data in get_release_info([package], json=json):
         for url in urls:
             filename = url['filename']
+            if pattern and not re.search(pattern, filename):
+                continue
             downloads = url['downloads']
             downloads = locale.format("%d", downloads, grouping=True)
             if not json:
@@ -209,6 +213,10 @@ def vanity():
         '-j',
         '--json',
         help='use pypi json api instead of xmlrpc', action='store_true')
+    parser.add_argument(
+        '-p',
+        '--pattern',
+        help='only show files matching a regex pattern')
     args = parser.parse_args()
     packages = args.package
     verbose = not(args.quiet)
@@ -229,8 +237,8 @@ def vanity():
             package,
             json=json,
             version=version,
-            verbose=verbose)
-
+            verbose=verbose,
+            pattern=args.pattern)
         if total != 0:
             if version:
                 logger.debug(
