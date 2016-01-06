@@ -95,3 +95,11 @@ Enter multiple package names::
     setuptools has been downloaded 34,601,114 times!
     distribute has been downloaded 29,661,287 times!
     setuptools and distribute have been downloaded 64,262,401 times!
+
+Enter search pattern::
+
+    C:\>vanity pillow -p "Pillow-3.0.0.*win32.*py3.2|Pillow-3.0.0.*cp32.*win32"
+        Pillow-3.0.0.win32-py3.2.exe    2015-10-01          582
+    Pillow-3.0.0-cp32-none-win32.whl    2015-10-01          591
+    -----------------------------------------------------------
+    Pillow has been downloaded 1173 times!
