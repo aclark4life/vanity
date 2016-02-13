@@ -98,8 +98,8 @@ test:
 	python manage.py test
 test-readme:
 	rst2html.py README.rst > readme.html; open readme.html
-update: commit
-up: commit-update push
+update: commit-update
+up: commit push
 upload-test:
 	python setup.py sdist --format=gztar,zip upload -r test
 upload:
