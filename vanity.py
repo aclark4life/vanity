@@ -19,9 +19,6 @@
 Get package download statistics from PyPI
 """
 
-# Based on https://github.com/collective/Products.PloneSoftwareCenter\
-# /commit/601558870175e35cfa4d05fb309859e580271a1f
-
 # For sorting XML-RPC results
 
 from collections import deque

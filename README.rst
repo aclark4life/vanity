@@ -1,7 +1,7 @@
 Vanity
 ======
 
-Get package download statistics from PyPI
+Get package download statistics from PyPI [1]_
 
 .. 
     .. image:: https://travis-ci.org/aclark4life/vanity.svg
@@ -103,3 +103,5 @@ Enter search pattern::
     Pillow-3.0.0-cp32-none-win32.whl    2015-10-01          591
     -----------------------------------------------------------
     Pillow has been downloaded 1173 times!
+
+.. [1] Based on https://github.com/collective/Products.PloneSoftwareCenter/commit/601558870175e35cfa4d05fb309859e580271a1f
