@@ -15,7 +15,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,
 # USA.
-
 """
 Get package download statistics from PyPI
 """
@@ -95,7 +94,10 @@ def by_two(source):
             out = []
 
 
-def count_downloads(package, verbose=True, version=None, json=False,
+def count_downloads(package,
+                    verbose=True,
+                    version=None,
+                    json=False,
                     pattern=None):
     """
     """
@@ -115,8 +117,7 @@ def count_downloads(package, verbose=True, version=None, json=False,
                 # Convert 2011-04-14T02:16:55 to 2011-04-14
                 upload_time = url['upload_time'].split('T')[0]
             if version == data['version'] or not version:
-                item = '%s    %s    %9s' % (
-                    filename, upload_time, downloads)
+                item = '%s    %s    %9s' % (filename, upload_time, downloads)
                 items.append(item)
                 count += url['downloads']
     if verbose and items != []:
@@ -204,22 +205,20 @@ def vanity():
     """
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('package', help='pypi package name', nargs='+')
-    parser.add_argument(
-        '-q',
-        '--quiet',
-        help='only show total downloads',
-        action='store_true')
-    parser.add_argument(
-        '-j',
-        '--json',
-        help='use pypi json api instead of xmlrpc', action='store_true')
-    parser.add_argument(
-        '-p',
-        '--pattern',
-        help='only show files matching a regex pattern')
+    parser.add_argument('-q',
+                        '--quiet',
+                        help='only show total downloads',
+                        action='store_true')
+    parser.add_argument('-j',
+                        '--json',
+                        help='use pypi json api instead of xmlrpc',
+                        action='store_true')
+    parser.add_argument('-p',
+                        '--pattern',
+                        help='only show files matching a regex pattern')
     args = parser.parse_args()
     packages = args.package
-    verbose = not(args.quiet)
+    verbose = not (args.quiet)
     version = None
     grand_total = 0
     package_list = []
@@ -233,22 +232,22 @@ def vanity():
             parser.error('No such module or package %r' % package)
 
         # Count downloads
-        total = count_downloads(
-            package,
-            json=json,
-            version=version,
-            verbose=verbose,
-            pattern=args.pattern)
+        total = count_downloads(package,
+                                json=json,
+                                version=version,
+                                verbose=verbose,
+                                pattern=args.pattern)
         if total != 0:
             if version:
-                logger.debug(
-                    '%s %s has been downloaded %s times!' %
-                    (package, version, locale.format(
-                        "%d", total, grouping=True)))
+                logger.debug('%s %s has been downloaded %s times!' %
+                             (package, version, locale.format("%d",
+                                                              total,
+                                                              grouping=True)))
             else:
-                logger.debug(
-                    '%s has been downloaded %s times!' %
-                    (package, locale.format("%d", total, grouping=True)))
+                logger.debug('%s has been downloaded %s times!' %
+                             (package, locale.format("%d",
+                                                     total,
+                                                     grouping=True)))
         else:
             if version:
                 logger.debug('No downloads for %s %s.' % (package, version))
@@ -257,12 +256,13 @@ def vanity():
         grand_total += total
         package_list.append(package)
     if len(package_list) > 1:
-        package_string = (', '.join(package_list[:-1]) + " and " +
-                          package_list[-1])
-        logger.debug(
-            "%s have been downloaded %s times!" % (
-                package_string, locale.format(
-                    "%d", grand_total, grouping=True)))
+        package_string = (
+            ', '.join(package_list[:-1]) + " and " + package_list[-1])
+        logger.debug("%s have been downloaded %s times!" %
+                     (package_string, locale.format("%d",
+                                                    grand_total,
+                                                    grouping=True)))
+
 
 if __name__ == '__main__':
     vanity()
