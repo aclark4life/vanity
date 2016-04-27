@@ -260,6 +260,7 @@ def vanity():
                                                     grand_total,
                                                     grouping=True)))
 
+    logger.debug("\n\n\t *** Note: PyPI stats are broken again; we're now waiting for warehouse. https://github.com/aclark4life/vanity/issues/22 ***\n\n")
 
 if __name__ == '__main__':
     vanity()

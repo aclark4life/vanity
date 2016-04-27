@@ -46,7 +46,7 @@
 #uninstall
 
 # https://www.gnu.org/software/make/manual/html_node/Special-Variables.html#Special-Variables
-.DEFAULT_GOAL : git-commit-auto-push
+.DEFAULT_GOAL : git-commit-edit-push
 
 # https://www.gnu.org/software/make/manual/html_node/Phony-Targets.html
 .PHONY : install

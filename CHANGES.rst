@@ -1,8 +1,10 @@
 Changelog
 =========
 
-2.3.0 (Unreleased)
+2.2.1 (2016-04-27)
 ------------------
+
+- Add message *** Note: PyPI stats are broken again; we're now waiting for warehouse. https://github.com/aclark4life/vanity/issues/22 ***
 
 2.2.0 (2016-01-06)
 ------------------
