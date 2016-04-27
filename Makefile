@@ -1,4 +1,4 @@
-# https://github.com/aclark4life/python-project
+# https://github.com/aclark4life/project-makefile
 #
 # The MIT License (MIT)
 #
@@ -22,93 +22,186 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+# GNU software standard targets... for inspiration.
+# https://www.gnu.org/prep/standards/html_node/Standard-Targets.html
+#TAGS
+#all
+#check
+#clean
+#distclean
+#dist
+#dvi
+#html
+#info
+#install-dvi
+#install-html
+#install-pdf
+#install-ps
+#install-strip
+#install
+#maintainer-clean
+#mostlyclean
+#pdf
+#ps
+#uninstall
+
+# https://www.gnu.org/software/make/manual/html_node/Special-Variables.html#Special-Variables
+.DEFAULT_GOAL : git-commit-auto-push
+
+# https://www.gnu.org/software/make/manual/html_node/Phony-Targets.html
+.PHONY : install
+
+# Short target names to execute default, multiple and preferred targets
+commit: git-commit-auto-push
+co: git-checkout-branches
+db: django-migrate django-su
+db-clean: django-db-clean-postgres
+heroku: heroku-push
+install: python-virtualenv-create python-pip-install
+lint: python-flake python-yapf python-wc
+release: python-package-release
+releasetest: python-package-release-test
+serve: django-serve
+static: django-static
+test: django-test
+vm: vagrant-up
+vm-down: vagrant-suspend
+
+# Variables to configure defaults 
+COMMIT_MESSAGE="Update"
+PROJECT=project
+APP=app
+
 # Django
-project = project
-app = app
+django-db-clean-postgres:
+	-dropdb $(PROJECT)-$(APP)
+	-createdb $(PROJECT)-$(APP)
+django-db-clean-sqlite:
+	-rm -f $(PROJECT)-$(APP).sqlite3
+django-migrate:
+	python manage.py migrate
+django-migrations:
+	python manage.py makemigrations $(APP)
+django-migrations-clean:
+	rm -rf $(PROJECT)/$(APP)/migrations
+	$(MAKE) django-migrations
+django-serve:
+	python manage.py runserver
+django-test:
+	python manage.py test
+django-shell:
+	python manage.py shell
+django-start:
+	-mkdir -p $(PROJECT)/$(APP)
+	-django-admin startproject $(PROJECT) .
+	-django-admin startapp $(APP) $(PROJECT)/$(APP)
+django-static:
+	python manage.py collectstatic --noinput
+django-su:
+	python manage.py createsuperuser
 
-# Python
-package = $(project)
-
-all: up
-branches=`git branch -a | grep remote | grep -v HEAD | grep -v master`
-clean:
-	find . -name \*.pyc | xargs rm -v
-clean-migrations:
-	rm -rf $(project)/$(app)/migrations
-clean-postgres:
-	-dropdb $(project)-$(app)
-	-createdb $(project)-$(app)
-clean-sqlite:
-	-rm -f db.sqlite3
-	-git add db.sqlite3
-co:
-	-for i in $(branches) ; do \
-        git checkout -t $$i ; \
-    done
-commit:
+# Git
+REMOTE_BRANCHES=`git branch -a |\
+	grep remote |\
+	grep -v HEAD |\
+	grep -v master`
+git-checkout-branches:
+	-for i in $(REMOTE_BRANCHES) ; do \
+        git checkout -t $$i ; done
+git-commit-auto-push:
+	git commit -a -m $(COMMIT_MESSAGE)
+	$(MAKE) git-push
+git-commit-edit-push:
 	git commit -a
-commit-update:
-	git commit -a -m "Update"
-db: migrate su
-flake:
-	-flake8 *.py
-	-flake8 $(project)/*.py
-	-flake8 $(project)/$(app)/*.py
-# http://stackoverflow.com/a/26339924
-.PHONY: help
+	$(MAKE) git-push
+git-push:
+	git push
+
+# Heroku
+heroku-debug-on:
+	heroku config:set DEBUG=1
+heroku-debug-off:
+	heroku config:unset DEBUG
+heroku-push:
+	git push heroku
+heroku-shell:
+	heroku run bash
+
+# Misc
 help:
-	@echo "\nPlease call with one of these targets:\n"
+	@echo "\nPlease run \`make\` with one of these targets:\n"
 	@$(MAKE) -pRrq -f $(lastword $(MAKEFILE_LIST)) : 2>/dev/null | awk -v RS= -F:\
         '/^# File/,/^# Finished Make data base/ {if ($$1 !~ "^[#.]") {print $$1}}'\
         | sort | egrep -v -e '^[^[:alnum:]]' -e '^$@$$' | xargs | tr ' ' '\n' | awk\
         '{print "    - "$$0}'
 	@echo "\n"
-install:
-	virtualenv .
-	bin/pip install -r requirements.txt
-lint: yapf flake wc
-migrate:
-	python manage.py migrate
-migrations:
-	python manage.py makemigrations $(app)
-package-test:
+review:
+	open -a "Sublime Text 2" `find $(PROJECT) -name \*.py | grep -v __init__.py`\
+        `find $(PROJECT) -name \*.html`
+
+# Node
+npm-init:
+	npm init
+npm-install:
+	npm install
+
+# Plone
+plone-heroku:
+	-@createuser -s plone > /dev/null 2>&1
+	-@createdb -U plone plone > /dev/null 2>&1
+	@export PORT=8080 && \
+		export USERNAME=admin && \
+		export PASSWORD=admin && \
+		bin/buildout -c heroku.cfg
+plone-install:
+	plock --force --no-cache .
+plone-serve:
+	@echo "Zope about to handle requests here:\n\n\thttp://localhost:8080\n"
+	@bin/plone fg
+
+# Python
+python-clean-pyc:
+	find . -name \*.pyc | xargs rm -v
+python-flake:
+	-flake8 *.py
+	-flake8 $(PROJECT)/*.py
+	-flake8 $(PROJECT)/$(APP)/*.py
+python-package-check:
 	check-manifest
 	pyroma .
-push: push-origin
-push-heroku:
-	git push heroku
-push-origin:
-	git push
-review:
-	open -a "Sublime Text 2" `find $(project) -name \*.py | grep -v __init__.py`\
-        `find $(project) -name \*.html`
-serve:
-	python manage.py runserver
-shell:
-	python manage.py shell
-shell-heroku:
-	heroku run bash
-start:
-	-mkdir -p $(project)/$(app)
-	-django-admin startproject $(project) .
-	-django-admin startapp $(app) $(project)/$(app)
-su:
-	python manage.py createsuperuser
-test:
-	python manage.py test
-test-readme:
-	rst2html.py README.rst > readme.html; open readme.html
-update: commit-update
-up: commit push
-upload-test:
-	python setup.py sdist --format=gztar,zip upload -r test
-upload:
-	python setup.py sdist --format=gztar,zip upload
-wc:
-	wc -l *.py
-	wc -l $(project)/*.py
-	wc -l $(project)/$(app)/*.py
-yapf:
+python-pip-install:
+	bin/pip install -r requirements.txt
+python-virtualenv-create:
+	virtualenv .
+python-yapf:
 	-yapf -i *.py
-	-yapf -i -e $(project)/urls.py $(project)/*.py
-	-yapf -i $(project)/$(app)/*.py
+	-yapf -i -e $(PROJECT)/urls.py $(PROJECT)/*.py
+	-yapf -i $(PROJECT)/$(APP)/*.py
+python-wc:
+	-wc -l *.py
+	-wc -l $(PROJECT)/*.py
+	-wc -l $(PROJECT)/$(APP)/*.py
+
+# Python Package
+python-package-readme-test:
+	rst2html.py README.rst > readme.html; open readme.html
+python-package-release:
+	python setup.py sdist --format=gztar,zip upload
+python-package-release-test:
+	python setup.py sdist --format=gztar,zip upload -r test
+
+# Sphinx
+sphinx-start:
+	sphinx-quickstart -q -p "Python Project" -a "Alex Clark" -v 0.0.1 doc
+
+# Vagrant
+vagrant-box-update:
+	vagrant box update
+vagrant-clean:
+	vagrant destroy
+vagrant-down:
+	vagrant suspend
+vagrant-init:
+	vagrant init ubuntu/trusty64; vagrant up --provider virtualbox
+vagrant-up:
+	vagrant up --provision
