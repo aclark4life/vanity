@@ -31,11 +31,11 @@ except ImportError:
     from httplib import HTTPSConnection
 
 import argparse
-import json
 import locale
 import logging
 import re
 import time
+import requests
 
 # PyPI's XML-RPC methods
 # https://wiki.python.org/moin/PyPIXmlRpc
@@ -133,9 +133,7 @@ def get_jsonparsed_data(url):
     """Receive the content of ``url``, parse it as JSON and return the
        object.
     """
-    response = urlopen(url)
-    data = str(response.read())
-    return json.loads(data)
+    return requests.get(url).json()
 
 
 def normalize(name):
