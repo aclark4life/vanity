@@ -21,7 +21,7 @@ Get package download statistics from PyPI
 
 # For sorting XML-RPC results
 
-from collections import deque
+from collections import deque, OrderedDict
 
 # HTTPS connection for normalize function
 
@@ -133,7 +133,12 @@ def get_jsonparsed_data(url):
     """Receive the content of ``url``, parse it as JSON and return the
        object.
     """
-    return requests.get(url).json()
+    response = requests.get(url).json()
+    sorted_releases = OrderedDict()
+    for release in sorted(response['releases'].keys())[::-1]:
+        sorted_releases[release] = response['releases'][release]
+    response['releases'] = sorted_releases
+    return response
 
 
 def normalize(name):
