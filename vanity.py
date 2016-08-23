@@ -33,9 +33,9 @@ except ImportError:
 import argparse
 import locale
 import logging
+import json
 import re
 import time
-import requests
 
 # PyPI's XML-RPC methods
 # https://wiki.python.org/moin/PyPIXmlRpc
@@ -133,7 +133,9 @@ def get_jsonparsed_data(url):
     """Receive the content of ``url``, parse it as JSON and return the
        object.
     """
-    response = requests.get(url).json()
+    response = urlopen(url)
+    response = json.loads(str(response.read(), 'utf-8'))
+
     sorted_releases = OrderedDict()
     for release in sorted(response['releases'].keys())[::-1]:
         sorted_releases[release] = response['releases'][release]
