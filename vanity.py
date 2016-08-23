@@ -134,7 +134,7 @@ def get_jsonparsed_data(url):
        object.
     """
     response = urlopen(url)
-    response = json.loads(str(response.read(), 'utf-8'))
+    response = json.loads(response.read().decode('utf-8'))
 
     sorted_releases = OrderedDict()
     for release in sorted(response['releases'].keys())[::-1]:
