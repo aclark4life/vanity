@@ -130,7 +130,8 @@ def count_downloads(package,
 
 # http://stackoverflow.com/a/28786650
 def get_jsonparsed_data(url):
-    """Receive the content of ``url``, parse it as JSON and return the
+    """
+       Receive the content of ``url``, parse it as JSON and return the
        object.
     """
     response = urlopen(url)
