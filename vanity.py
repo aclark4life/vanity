@@ -232,7 +232,8 @@ def vanity():
         try:
             package = normalize(package)
         except ValueError:
-            parser.error('No such module or package %r' % package)
+            logger.debug('No such module or package %r' % package)
+            continue
 
         # Count downloads
         total = count_downloads(package,
