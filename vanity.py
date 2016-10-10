@@ -117,7 +117,7 @@ def count_downloads(package,
                 item = '%s    %s    %9s' % (filename, upload_time, downloads)
                 items.append(item)
                 count += url['downloads']
-    if verbose and not items:
+    if verbose and items != []:
         items.reverse()
         # http://stackoverflow.com/questions/873327/\
         # pythons-most-efficient-way-to-choose-longest-string-in-list
