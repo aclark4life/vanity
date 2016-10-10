@@ -26,6 +26,8 @@ script:
   - coverage run --append --include=./* vanity.py vanity==0.0.0
   - coverage run --append --include=./* vanity.py vanity==1.0
   - coverage run --append --include=./* vanity.py pillow --pattern "Pillow-3.0.0.*win32.*py3.2|Pillow-3.0.0.*cp32.*win32"
+  # run unit tests
+  - coverage run --append --include=./* tests.py
 
 after_success:
   - coverage report
