@@ -19,6 +19,7 @@ setup(author='Alex Clark',
           'console_scripts': 'vanity=vanity:vanity',
       },
       include_package_data=True,
+      install_requires=['requests'],
       keywords='analytics python package index statistics',
       license='GPL',
       long_description=(open('README.rst').read() + '\n' + open(os.path.join(
