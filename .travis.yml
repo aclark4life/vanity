@@ -5,7 +5,6 @@ python:
   - pypy3
   - 2.7
   - 2.7_with_system_site_packages
-  - 3.2
   - 3.3
   - 3.4
   - 3.5
