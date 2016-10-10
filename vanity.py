@@ -33,9 +33,9 @@ except ImportError:
 import argparse
 import locale
 import logging
+import json
 import re
 import time
-import requests
 
 # PyPI's XML-RPC methods
 # https://wiki.python.org/moin/PyPIXmlRpc
@@ -130,10 +130,13 @@ def count_downloads(package,
 
 # http://stackoverflow.com/a/28786650
 def get_jsonparsed_data(url):
-    """Receive the content of ``url``, parse it as JSON and return the
+    """
+       Receive the content of ``url``, parse it as JSON and return the
        object.
     """
-    response = requests.get(url).json()
+    response = urlopen(url)
+    response = json.loads(response.read().decode('utf-8'))
+
     sorted_releases = OrderedDict()
     for release in sorted(response['releases'].keys())[::-1]:
         sorted_releases[release] = response['releases'][release]
