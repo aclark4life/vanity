@@ -17,17 +17,17 @@ install:
 
 script:
   # Simple tests: just run some example commands with options
-  - coverage run --append --include=./* vanity.py -h
-  - coverage run --append --include=./* vanity.py --help
-  - coverage run --append --include=./* vanity.py vanity pillow
-  - coverage run --append --include=./* vanity.py vanity pillow -q
-  - coverage run --append --include=./* vanity.py --quiet vanity pillow
-  - coverage run --append --include=./* vanity.py pil
-  - coverage run --append --include=./* vanity.py vanity==0.0.0
-  - coverage run --append --include=./* vanity.py vanity==1.0
-  - coverage run --append --include=./* vanity.py pillow --pattern "Pillow-3.0.0.*win32.*py3.2|Pillow-3.0.0.*cp32.*win32"
+  - coverage run --append --include=vanity.py vanity.py -h
+  - coverage run --append --include=vanity.py vanity.py --help
+  - coverage run --append --include=vanity.py vanity.py vanity pillow
+  - coverage run --append --include=vanity.py vanity.py vanity pillow -q
+  - coverage run --append --include=vanity.py vanity.py --quiet vanity pillow
+  - coverage run --append --include=vanity.py vanity.py pil
+  - coverage run --append --include=vanity.py vanity.py vanity==0.0.0
+  - coverage run --append --include=vanity.py vanity.py vanity==1.0
+  - coverage run --append --include=vanity.py vanity.py pillow --pattern "Pillow-3.0.0.*win32.*py3.2|Pillow-3.0.0.*cp32.*win32"
   # run unit tests
-  - coverage run --append --include=./* tests.py
+  - coverage run --append --include=vanity.py tests.py
 
 after_success:
   - coverage report
