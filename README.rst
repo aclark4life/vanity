@@ -7,9 +7,9 @@ Get package download statistics from PyPI [1]_
        :target: https://travis-ci.org/aclark4life/vanity
        :alt: Travis CI build status
 
-    .. image:: https://pypip.in/v/vanity/badge.png
-       :target: https://pypi.python.org/pypi/vanity/
-       :alt: Latest PyPI version
+    .. image:: https://badge.fury.io/py/vanity.svg
+       :target: https://badge.fury.io/py/vanity
+       :alt: PyPI version
 
     .. image:: https://pypip.in/d/vanity/badge.png
        :target: https://pypi.python.org/pypi/vanity/
