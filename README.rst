@@ -11,8 +11,7 @@ Get package download statistics from PyPI [1]_
        :target: https://badge.fury.io/py/vanity
        :alt: PyPI version
        
-    .. image:: https://img.shields.io/pypi/dm/vanity.svg?maxAge=2592000
-       :target: 
+    .. image:: https://img.shields.io/pypi/dm/vanity.svg?maxAge=2592000 :target: 
        :alt: PyPI downloads
 
     .. image:: https://coveralls.io/repos/aclark4life/vanity/badge.png?branch=travisci
