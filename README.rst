@@ -11,10 +11,6 @@ Get package download statistics from PyPI [1]_
        :target: https://badge.fury.io/py/vanity
        :alt: PyPI version
 
-    .. image:: https://pypip.in/d/vanity/badge.png
-       :target: https://pypi.python.org/pypi/vanity/
-       :alt: Number of PyPI downloads
-
     .. image:: https://coveralls.io/repos/aclark4life/vanity/badge.png?branch=travisci
        :target: https://coveralls.io/r/aclark4life/vanity?branch=travisci
        :alt: Code coverage
