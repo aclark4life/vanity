@@ -2,8 +2,7 @@ Vanity
 ======
 
 Get package download statistics from PyPI [1]_
-
-.. 
+ 
     .. image:: https://travis-ci.org/aclark4life/vanity.svg
        :target: https://travis-ci.org/aclark4life/vanity
        :alt: Travis CI build status
