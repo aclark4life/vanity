@@ -10,12 +10,9 @@ Get package download statistics from PyPI [1]_
     .. image:: https://img.shields.io/pypi/v/vanity.svg
        :target: https://pypi.python.org/pypi/vanity/
        :alt: PyPI version
-       
-    .. image:: https://img.shields.io/pypi/dm/vanity.svg?maxAge=2592000 :target: 
-       :alt: PyPI downloads
 
-    .. image:: https://img.shields.io/coveralls/aclark4life/vanity/travisci.svg
-       :target: https://coveralls.io/r/aclark4life/vanity?branch=travisci
+    .. image:: https://img.shields.io/coveralls/aclark4life/vanity/master.svg
+       :target: https://coveralls.io/r/aclark4life/vanity?branch=master
        :alt: Code coverage
 
     .. image:: https://landscape.io/github/aclark4life/vanity/master/landscape.png
