@@ -2,27 +2,22 @@ Vanity
 ======
 
 Get package download statistics from PyPI [1]_
+ 
+.. image:: https://travis-ci.org/aclark4life/vanity.svg
+   :target: https://travis-ci.org/aclark4life/vanity
+   :alt: Travis CI build status
 
-.. 
-    .. image:: https://travis-ci.org/aclark4life/vanity.svg
-       :target: https://travis-ci.org/aclark4life/vanity
-       :alt: Travis CI build status
+.. image:: https://img.shields.io/pypi/v/vanity.svg
+   :target: https://pypi.python.org/pypi/vanity/
+   :alt: PyPI version
 
-    .. image:: https://pypip.in/v/vanity/badge.png
-       :target: https://pypi.python.org/pypi/vanity/
-       :alt: Latest PyPI version
+.. image:: https://img.shields.io/coveralls/aclark4life/vanity/master.svg
+   :target: https://coveralls.io/r/aclark4life/vanity?branch=master
+   :alt: Code coverage
 
-    .. image:: https://pypip.in/d/vanity/badge.png
-       :target: https://pypi.python.org/pypi/vanity/
-       :alt: Number of PyPI downloads
-
-    .. image:: https://coveralls.io/repos/aclark4life/vanity/badge.png?branch=travisci
-       :target: https://coveralls.io/r/aclark4life/vanity?branch=travisci
-       :alt: Code coverage
-
-    .. image:: https://landscape.io/github/aclark4life/vanity/master/landscape.png
-       :target: https://landscape.io/github/aclark4life/vanity/master
-       :alt: Code health
+.. image:: https://landscape.io/github/aclark4life/vanity/master/landscape.png
+   :target: https://landscape.io/github/aclark4life/vanity/master
+   :alt: Code health
 
 Installation
 ------------
