@@ -3,25 +3,36 @@ import unittest
 import vanity
 
 
-class testNormalize(unittest.TestCase):
+class test_normalize(unittest.TestCase):
     """
     A test class for the normalize method.
     """
 
-    def testFakePackage(self):
+    def test_fake_package(self):
         self.assertRaises(ValueError,
                           vanity.normalize,
                           "FAKEPACKAGE1@!")
+        self.assertRaises(ValueError,
+                          vanity.normalize,
+                          "1337INoscopeyou")
 
-    def testDjango(self):
+    def test_django(self):
         normalized = vanity.normalize("dJaNgO")
         self.assertEqual(normalized, "Django")
 
-    def testNone(self):
+    def test_none(self):
         normalized = vanity.normalize(None)
         self.assertEqual(normalized, "none")
 
-    def testEmpty(self):
+    def test_flask(self):
+        normalized = vanity.normalize("fLaSk")
+        self.assertEqual(normalized, "Flask")
+
+    def test_space_string(self):
+        normalized = vanity.normalize("               Flask                ")
+        self.assertEqual(normalized, "               Flask                ")
+
+    def test_empty(self):
         """
         TODO: this test is rather slow to run,
         perhaps normalize could be refactored to check this

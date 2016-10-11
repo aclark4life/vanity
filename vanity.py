@@ -97,6 +97,8 @@ def count_downloads(package,
                     json=False,
                     pattern=None):
     """
+    Retrieve and return the statistics from the get_release_info() function in json format,
+    and return the number of downloads stored in "downloads" key
     """
     count = 0
     items = []
@@ -131,8 +133,8 @@ def count_downloads(package,
 # http://stackoverflow.com/a/28786650
 def get_jsonparsed_data(url):
     """
-       Receive the content of ``url``, parse it as JSON and return the
-       object.
+    Receive the content of ``url``, parse it as JSON and return the
+    object.
     """
     response = urlopen(url)
     response = json.loads(response.read().decode('utf-8'))
@@ -146,6 +148,7 @@ def get_jsonparsed_data(url):
 
 def normalize(name):
     """
+    Normalize and return the correct name of the package if the user doesn't type in correctly
     """
     http = HTTPSConnection(PYPI_HOST)
     http.request('HEAD', '/pypi/%s/' % name)
@@ -175,7 +178,9 @@ def get_releases(packages):
 
 def get_release_info(packages, json=False):
     """
-    """
+    The main function where the program start pulling down the statistics
+    for the correct package passed in.
+    """    
     if json:
         for package in packages:
             data = get_jsonparsed_data(PYPI_JSON % package)
@@ -196,6 +201,7 @@ def get_release_info(packages, json=False):
                 result = mcall()
                 mcall = xmlrpc.MultiCall(PYPI_XML)
                 for urls, data in by_two(result):
+
                     yield urls, data
 
     result = mcall()
