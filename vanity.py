@@ -1,4 +1,5 @@
-#
+# -*- coding: utf-8 -*-
+
 # Copyright (C) 2011-2016 Alex Clark
 #
 # This program is free software; you can redistribute it and/or
@@ -15,31 +16,26 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,
 # USA.
-"""
-Get package download statistics from PyPI
-"""
+"""Get package download statistics from PyPI."""
+
+import argparse
+import json
+import locale
+import logging
+import re
+import time
 
 # For sorting XML-RPC results
-
-from collections import deque, OrderedDict
+from collections import OrderedDict, deque
 
 # HTTPS connection for normalize function
-
 try:
     from http.client import HTTPSConnection
 except ImportError:
     from httplib import HTTPSConnection
 
-import argparse
-import locale
-import logging
-import json
-import re
-import time
-
 # PyPI's XML-RPC methods
 # https://wiki.python.org/moin/PyPIXmlRpc
-
 try:
     import xmlrpc.client as xmlrpc
 except ImportError:  # Python 2
@@ -52,7 +48,6 @@ PYPI_XML = xmlrpc.ServerProxy(PYPI_URL)
 
 # Print numbers with commas
 # http://stackoverflow.com/a/1823101
-
 try:
     locale.setlocale(locale.LC_ALL, 'en_US')
 except locale.Error:
@@ -60,7 +55,6 @@ except locale.Error:
 
 # Logger
 # https://docs.python.org/3/howto/logging.html
-
 logger = logging.getLogger('vanity')
 logger.setLevel(logging.DEBUG)
 ch = logging.StreamHandler()
@@ -71,7 +65,6 @@ logger.addHandler(ch)
 
 # PyPI JSON
 # http://stackoverflow.com/a/28786650
-
 try:
     # For Python 3.0 and later
     from urllib.request import urlopen
@@ -81,7 +74,12 @@ except ImportError:
 
 
 def by_two(source):
-    """
+    """Accept XMLRPC Multicall generator, and return items in pairs.
+
+    @param source: Result of XMLRPC Multicall
+    @type source: generator
+    @r_param out: Items from generator, in pairs
+    @r_type out: list
     """
     out = []
     for x in source:
@@ -96,9 +94,24 @@ def count_downloads(package,
                     version=None,
                     json=False,
                     pattern=None):
-    """
-    Retrieve and return the statistics from the get_release_info() function in json format,
-    and return the number of downloads stored in "downloads" key
+    """Receive package details, retrieve and return download count.
+
+    Call get_release_info() method to make requests to get package details, check for verbose and
+    json toggles, debug for discrepancies, maintain a download count counter,
+    and return total number of downloads.
+
+    @param package: Name of package to be retrieved.
+    @type package: str
+    @param verbose: Verbose Toggle
+    @type verbose: bool
+    @param version: Version number of package
+    @type version: str
+    @param json: JSON Toggle
+    @type json: bool
+    @param pattern: Regex pattern
+    @type pattern: str
+    @r_param count: Download count of package on PyPI
+    @r_type count: int
     """
     count = 0
     items = []
@@ -132,9 +145,12 @@ def count_downloads(package,
 
 # http://stackoverflow.com/a/28786650
 def get_jsonparsed_data(url):
-    """
-    Receive the content of ``url``, parse it as JSON and return the
-    object.
+    """Receive content of 'url', parse it as JSON, return the object.
+
+    @param url: URL of package's JSON data
+    @type url: str
+    @r_param response: JSON data from the URL
+    @r_type response: dict
     """
     response = urlopen(url)
     response = json.loads(response.read().decode('utf-8'))
@@ -147,19 +163,34 @@ def get_jsonparsed_data(url):
 
 
 def normalize(name):
-    """
-    Normalize and return the correct name of the package if the user doesn't type in correctly
+    """Normalize and return correct package name, if specified incorrectly.
+
+    Accept the package name, send a HTTP request to the relevant
+    URL, check response for valid PyPI existence, return normalized name.
+
+    @param name: The name of the package to be checked
+    @type name: str
+    @r_param normalized_name: Verified package name
+    @r_type normalized_name: str
     """
     http = HTTPSConnection(PYPI_HOST)
     http.request('HEAD', '/pypi/%s/' % name)
     r = http.getresponse()
     if r.status not in (200, 301):
         raise ValueError(r.reason)
-    return r.getheader('location', name).split('/')[-1]
+    normalized_name = r.getheader('location', name).split('/')[-1]
+    return normalized_name
 
 
 def get_releases(packages):
-    """
+    """Retrieve and return package data via XMLRPC requests.
+
+    @param packages: List of packages
+    @type packages: list
+    @r_param "called_packages.popleft()": Called package ame
+    @r_type "called_packages.popleft()": str
+    @r_param releases: Items from Multicall Generator Object
+    @r_type releases: XMLRPC Proxy Object
     """
     mcall = xmlrpc.MultiCall(PYPI_XML)
     called_packages = deque()
@@ -177,10 +208,20 @@ def get_releases(packages):
 
 
 def get_release_info(packages, json=False):
+    """Retrieve statistics for package passed in by calling other methods.
+
+    Based on JSON toggle, retrieve package data as JSON or via XMLRPC requests
+    and return the data.
+
+    @param packages: List of package names
+    @type packages: list
+    @param json: JSON Toggle
+    @type json: bool
+    @r_param urls: Details of a particular release
+    @r_type urls: dict
+    @r_param data[info]/data: General information about package
+    @r_type data[info]/data: dict
     """
-    The main function where the program start pulling down the statistics
-    for the correct package passed in.
-    """    
     if json:
         for package in packages:
             data = get_jsonparsed_data(PYPI_JSON % package)
@@ -210,8 +251,7 @@ def get_release_info(packages, json=False):
 
 
 def vanity():
-    """
-    """
+    """Parse args, verify package, retrieve details, return download count."""
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('package', help='pypi package name', nargs='+')
     parser.add_argument('-q',
@@ -273,7 +313,9 @@ def vanity():
                                                     grand_total,
                                                     grouping=True))
 
-    logger.debug("\n\n\t *** Note: PyPI stats are broken again; we're now waiting for warehouse. https://github.com/aclark4life/vanity/issues/22 ***\n\n")
+    logger.debug("\n\n\t *** Note: PyPI stats are broken again; we're now"
+                 "waiting for warehouse. https://github.com/aclark4life/"
+                 "vanity/issues/22 ***\n\n")
 
 if __name__ == '__main__':
     vanity()
