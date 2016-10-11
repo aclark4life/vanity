@@ -232,7 +232,7 @@ def vanity():
         try:
             package = normalize(package)
         except ValueError:
-            logger.debug('No such module or package %r' % package)
+            logger.debug('No such module or package %r', package)
             continue
 
         # Count downloads
@@ -243,29 +243,29 @@ def vanity():
                                 pattern=args.pattern)
         if total != 0:
             if version:
-                logger.debug('%s %s has been downloaded %s times!' %
-                             (package, version, locale.format("%d",
+                logger.debug('%s %s has been downloaded %s times!', 
+                             package, version, locale.format("%d",
                                                               total,
-                                                              grouping=True)))
+                                                              grouping=True))
             else:
-                logger.debug('%s has been downloaded %s times!' %
-                             (package, locale.format("%d",
+                logger.debug('%s has been downloaded %s times!',
+                             package, locale.format("%d",
                                                      total,
-                                                     grouping=True)))
+                                                     grouping=True))
         else:
             if version:
-                logger.debug('No downloads for %s %s.' % (package, version))
+                logger.debug('No downloads for %s %s.', package, version)
             else:
-                logger.debug('No downloads for %s.' % package)
+                logger.debug('No downloads for %s.', package)
         grand_total += total
         package_list.append(package)
     if len(package_list) > 1:
         package_string = (
             ', '.join(package_list[:-1]) + " and " + package_list[-1])
-        logger.debug("%s have been downloaded %s times!" %
-                     (package_string, locale.format("%d",
+        logger.debug("%s have been downloaded %s times!", 
+                     package_string, locale.format("%d",
                                                     grand_total,
-                                                    grouping=True)))
+                                                    grouping=True))
 
     logger.debug("\n\n\t *** Note: PyPI stats are broken again; we're now waiting for warehouse. https://github.com/aclark4life/vanity/issues/22 ***\n\n")
 
