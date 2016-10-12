@@ -3,7 +3,7 @@ import unittest
 import vanity
 
 
-class test_normalize(unittest.TestCase):
+class TestNormalize(unittest.TestCase):
     """
     A test class for the normalize method.
     """
@@ -33,11 +33,6 @@ class test_normalize(unittest.TestCase):
         self.assertEqual(normalized, "               Flask                ")
 
     def test_empty(self):
-        """
-        TODO: this test is rather slow to run,
-        perhaps normalize could be refactored to check this
-        and kick out faster.
-        """
         normalized = vanity.normalize("")
         self.assertEqual(normalized, "")
 
