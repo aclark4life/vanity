@@ -3,7 +3,7 @@ import unittest
 import vanity
 
 
-class TestNormalize(unittest.TestCase):
+class TestByTwo(unittest.TestCase):
     """
     A test class for the by_two method.
     """
@@ -35,9 +35,10 @@ class TestNormalize(unittest.TestCase):
 
         self.assertEqual(result['test.com'], 'test data')
         self.assertEqual(result['foo.org'], 'foo data')
-        self.assertEqual(result.get('bar.net'), None)
+        self.assertIsNone(result.get('bar.net'))
 
 
+class TestNormalize(unittest.TestCase):
     """
     A test class for the normalize method.
     """

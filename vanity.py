@@ -81,10 +81,10 @@ def by_two(source):
     @r_param out: Items from generator, as namedtuple(url, data)
     @r_type out: namedtuple
     """
-    urldata = namedtuple('urldata', ['url', 'data'])
+    release_info = namedtuple('release_info', ['urls', 'data'])
     it = iter(source)
-    for url in it:
-        yield urldata(url=url, data=next(it))
+    for urls in it:
+        yield release_info(urls=urls, data=next(it))
 
 
 def count_downloads(package,
