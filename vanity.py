@@ -72,21 +72,21 @@ except ImportError:
     # Fall back to Python 2's urllib2
     from urllib2 import urlopen
 
+from collections import namedtuple
+
 
 def by_two(source):
     """Accept XMLRPC Multicall generator, and return items in pairs.
 
     @param source: Result of XMLRPC Multicall
     @type source: generator
-    @r_param out: Items from generator, in pairs
-    @r_type out: list
+    @r_param out: Items from generator, as namedtuple(url, data)
+    @r_type out: namedtuple
     """
-    out = []
-    for x in source:
-        out.append(x)
-        if len(out) == 2:
-            yield out
-            out = []
+    urldata = namedtuple('urldata', ['url', 'data'])
+    it = iter(source)
+    for url in it:
+        yield urldata(url=url, data=next(it))
 
 
 def count_downloads(package,

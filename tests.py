@@ -5,6 +5,40 @@ import vanity
 
 class TestNormalize(unittest.TestCase):
     """
+    A test class for the by_two method.
+    """
+
+    def test_none(self):
+        input = iter(())
+
+        result = {url: data for (url, data) in vanity.by_two(input)}
+
+        self.assertEqual(result, {})
+
+    def test_pairs_url_and_data(self):
+        input = iter(['test.com', 'test data',
+                      'foo.org', 'foo data',
+                      'bar.net', 'bar data'])
+
+        result = {url: data for (url, data) in vanity.by_two(input)}
+
+        self.assertEqual(result['test.com'], 'test data')
+        self.assertEqual(result['foo.org'], 'foo data')
+        self.assertEqual(result['bar.net'], 'bar data')
+
+    def test_odd_input(self):
+        input = iter(['test.com', 'test data',
+                      'foo.org', 'foo data',
+                      'bar.net'])
+
+        result = {url: data for (url, data) in vanity.by_two(input)}
+
+        self.assertEqual(result['test.com'], 'test data')
+        self.assertEqual(result['foo.org'], 'foo data')
+        self.assertEqual(result.get('bar.net'), None)
+
+
+    """
     A test class for the normalize method.
     """
 
