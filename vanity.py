@@ -26,7 +26,7 @@ import re
 import time
 
 # For sorting XML-RPC results
-from collections import OrderedDict, deque
+from collections import OrderedDict, deque, namedtuple
 
 # HTTPS connection for normalize function
 try:
@@ -71,8 +71,6 @@ try:
 except ImportError:
     # Fall back to Python 2's urllib2
     from urllib2 import urlopen
-
-from collections import namedtuple
 
 
 def by_two(source):
