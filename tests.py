@@ -34,8 +34,8 @@ def two_url_release_info(package, json):
 
 
 # http://stackoverflow.com/q/21611559
-def Any(type):
-    class Any(type):
+def Any(object_type):
+    class Any(object_type):
         def __eq__(self, other):
             return True
     return Any()
@@ -92,6 +92,7 @@ class TestCountDownloads(unittest.TestCase):
 
         count = vanity.count_downloads('fake package')
 
+        self.assertEqual(count, 1)
         mock_logger.debug.assert_any_call(Any(str))
 
     @mock.patch('vanity.get_release_info', side_effect=single_release_info)
@@ -102,6 +103,7 @@ class TestCountDownloads(unittest.TestCase):
         count = vanity.count_downloads('fake package',
                                        verbose=False)
 
+        self.assertEqual(count, 1)
         mock_logger.debug.assert_not_called()
 
 
