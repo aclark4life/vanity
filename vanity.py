@@ -94,9 +94,9 @@ def count_downloads(package,
                     pattern=None):
     """Receive package details, retrieve and return download count.
 
-    Call get_release_info() method to make requests to get package details, check for verbose and
-    json toggles, debug for discrepancies, maintain a download count counter,
-    and return total number of downloads.
+    Call get_release_info() method to make requests to get package details,
+    check for verbose and json toggles, debug for discrepancies,
+    maintain a download count counter and return total number of downloads.
 
     @param package: Name of package to be retrieved.
     @type package: str
@@ -147,6 +147,7 @@ def get_json_from_url(url):
     """
     response = urlopen(url)
     return json.loads(response.read().decode('utf-8'))
+
 
 # http://stackoverflow.com/a/28786650
 def get_jsonparsed_data(url):
@@ -257,28 +258,11 @@ def get_release_info(packages, json=False):
         yield urls, data
 
 
-def vanity():
+def vanity(packages, verbose, json):
     """Parse args, verify package, retrieve details, return download count."""
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('package', help='pypi package name', nargs='+')
-    parser.add_argument('-q',
-                        '--quiet',
-                        help='only show total downloads',
-                        action='store_true')
-    parser.add_argument('-j',
-                        '--json',
-                        help='use pypi json api instead of xmlrpc',
-                        action='store_true')
-    parser.add_argument('-p',
-                        '--pattern',
-                        help='only show files matching a regex pattern')
-    args = parser.parse_args()
-    packages = args.package
-    verbose = not (args.quiet)
     version = None
     grand_total = 0
     package_list = []
-    json = args.json
     for package in packages:
         if package.find('==') >= 0:
             package, version = package.split('==')
@@ -296,15 +280,15 @@ def vanity():
                                 pattern=args.pattern)
         if total != 0:
             if version:
-                logger.debug('%s %s has been downloaded %s times!', 
+                logger.debug('%s %s has been downloaded %s times!',
                              package, version, locale.format("%d",
-                                                              total,
-                                                              grouping=True))
+                                                             total,
+                                                             grouping=True))
             else:
                 logger.debug('%s has been downloaded %s times!',
                              package, locale.format("%d",
-                                                     total,
-                                                     grouping=True))
+                                                    total,
+                                                    grouping=True))
         else:
             if version:
                 logger.debug('No downloads for %s %s.', package, version)
@@ -315,14 +299,31 @@ def vanity():
     if len(package_list) > 1:
         package_string = (
             ', '.join(package_list[:-1]) + " and " + package_list[-1])
-        logger.debug("%s have been downloaded %s times!", 
+        logger.debug("%s have been downloaded %s times!",
                      package_string, locale.format("%d",
-                                                    grand_total,
-                                                    grouping=True))
+                                                   grand_total,
+                                                   grouping=True))
 
     logger.debug("\n\n\t *** Note: PyPI stats are broken again; we're now"
                  "waiting for warehouse. https://github.com/aclark4life/"
                  "vanity/issues/22 ***\n\n")
 
 if __name__ == '__main__':
-    vanity()
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('package', help='pypi package name', nargs='+')
+    parser.add_argument('-q',
+                        '--quiet',
+                        help='only show total downloads',
+                        action='store_true')
+    parser.add_argument('-j',
+                        '--json',
+                        help='use pypi json api instead of xmlrpc',
+                        action='store_true')
+    parser.add_argument('-p',
+                        '--pattern',
+                        help='only show files matching a regex pattern')
+    args = parser.parse_args()
+
+    vanity(packages=args.package,
+           verbose=not (args.quiet),
+           json=args.json)

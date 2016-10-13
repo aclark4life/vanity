@@ -14,6 +14,21 @@ def mock_multi_release(url):
     return {'releases': {'2.0': '1', '1.0': 'a', '3.1': 'a', '1.5': ''}}
 
 
+def mock_json_data(url):
+    return {'releases':
+            {'1.0': [{'filename': 'fake package',
+                      'downloads': 1,
+                      'upload_time': '2016-10-12T03:00:42'}],
+             '1.9': [{'filename': 'fake package',
+                      'downloads': 3,
+                      'upload_time': '2016-10-13T09:01:00'}],
+             '1.2': [{'filename': 'fake package',
+                      'downloads': 2,
+                      'upload_time': '2016-10-13T02:10:08'}]
+             },
+            'info': {'version': '1.0'}}
+
+
 def empty_release_info(package, json):
     return iter(())
 
@@ -48,7 +63,7 @@ def Any(object_type):
             return True
     return Any()
 
-    
+
 class TestGetJsonParsedData(unittest.TestCase):
     """
     A test class for the get_jsonparsed_data method.
@@ -103,6 +118,15 @@ class TestCountDownloads(unittest.TestCase):
         count = vanity.count_downloads('fake package')
 
         self.assertEqual(count, 3)
+
+    @mock.patch('vanity.get_json_from_url', side_effect=mock_json_data)
+    def test_count_json(self, get_json_func):
+        expected_url = 'https://pypi.python.org/pypi/fake package/json'
+        count = vanity.count_downloads('fake package',
+                                       json=True)
+
+        get_json_func.assert_called_with(expected_url)
+        self.assertEqual(count, 6)
 
     @mock.patch('vanity.get_release_info', side_effect=single_release_info)
     def test_count_version(self, get_release_func):
