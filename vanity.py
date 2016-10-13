@@ -258,7 +258,7 @@ def get_release_info(packages, json=False):
         yield urls, data
 
 
-def vanity(packages, verbose, json):
+def vanity(packages, verbose, json, pattern):
     """Parse args, verify package, retrieve details, return download count."""
     version = None
     grand_total = 0
@@ -277,7 +277,7 @@ def vanity(packages, verbose, json):
                                 json=json,
                                 version=version,
                                 verbose=verbose,
-                                pattern=args.pattern)
+                                pattern=pattern)
         if total != 0:
             if version:
                 logger.debug('%s %s has been downloaded %s times!',
@@ -326,4 +326,5 @@ if __name__ == '__main__':
 
     vanity(packages=args.package,
            verbose=not (args.quiet),
-           json=args.json)
+           json=args.json,
+           pattern=args.pattern)

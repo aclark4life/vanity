@@ -56,6 +56,10 @@ def two_url_release_info(package, json):
     yield [first_url, second_url], data
 
 
+def mock_normalize(package):
+    return package
+
+
 # http://stackoverflow.com/q/21611559
 def Any(object_type):
     class Any(object_type):
@@ -100,6 +104,15 @@ class TestCountDownloads(unittest.TestCase):
     """
     A test class for the count_downloads method.
     """
+
+    mock_logger = mock.Mock()
+
+    def setUp(self):
+        self.old_logger = vanity.logger
+        vanity.logger = self.mock_logger
+
+    def tearDown(self):
+        vanity.logger = self.old_logger
 
     @mock.patch('vanity.get_release_info', side_effect=empty_release_info)
     def test_count_empty(self, get_release_func):
@@ -151,24 +164,21 @@ class TestCountDownloads(unittest.TestCase):
 
     @mock.patch('vanity.get_release_info', side_effect=single_release_info)
     def test_verbose_calls_debug(self, get_release_func):
-        mock_logger = mock.Mock()
-        vanity.logger = mock_logger
 
         count = vanity.count_downloads('fake package')
 
         self.assertEqual(count, 1)
-        mock_logger.debug.assert_any_call(Any(str))
+        self.mock_logger.debug.assert_any_call(Any(str))
 
     @mock.patch('vanity.get_release_info', side_effect=single_release_info)
     def test_not_verbose_no_debug(self, get_release_func):
-        mock_logger = mock.Mock()
-        vanity.logger = mock_logger
+        self.mock_logger = mock.Mock()
 
         count = vanity.count_downloads('fake package',
                                        verbose=False)
 
         self.assertEqual(count, 1)
-        mock_logger.debug.assert_not_called()
+        self.mock_logger.debug.assert_not_called()
 
 
 class TestByTwo(unittest.TestCase):
@@ -238,6 +248,59 @@ class TestNormalize(unittest.TestCase):
     def test_empty(self):
         normalized = vanity.normalize("")
         self.assertEqual(normalized, "")
+
+
+class TestVanity(unittest.TestCase):
+    """
+    A test class for the vanity method.
+    """
+
+    mock_logger = mock.Mock()
+
+    def setUp(self):
+        self.old_logger = vanity.logger
+        vanity.logger = self.mock_logger
+
+    def tearDown(self):
+        vanity.logger = self.old_logger
+
+    @mock.patch('vanity.normalize', side_effect=mock_normalize)
+    @mock.patch('vanity.get_json_from_url', side_effect=mock_json_data)
+    def test_vanity_count_downloads(self, mock_json_func, mock_norm_func):
+        # NB: mocks are passed in reverse order
+        expected_url = 'https://pypi.python.org/pypi/fake package/json'
+
+        vanity.vanity(packages=['fake package'],
+                      verbose=True,
+                      json=True,
+                      pattern=None)
+
+        mock_norm_func.assert_called_with('fake package')
+        mock_json_func.assert_called_with(expected_url)
+        self.mock_logger.debug.assert_any_call(
+            '%s has been downloaded %s times!',
+            'fake package',
+            '6')
+
+    @mock.patch('vanity.normalize', side_effect=mock_normalize)
+    @mock.patch('vanity.get_json_from_url', side_effect=mock_json_data)
+    def test_vanity_version_downloads(self, mock_json_func, mock_norm_func):
+        # NB: mocks are passed in reverse order
+        expected_url = 'https://pypi.python.org/pypi/fake package/json'
+
+        vanity.vanity(packages=['fake package==1.0'],
+                      verbose=True,
+                      json=True,
+                      pattern=None)
+
+        mock_norm_func.assert_called_with('fake package')
+        mock_json_func.assert_called_with(expected_url)
+        print(self.mock_logger.mock_calls)
+        self.mock_logger.debug.assert_any_call(
+            '%s %s has been downloaded %s times!',
+            'fake package',
+            '1.0',
+            '6')
 
 if __name__ == '__main__':
     unittest.main()
