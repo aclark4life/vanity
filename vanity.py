@@ -26,7 +26,7 @@ import re
 import time
 
 # For sorting XML-RPC results
-from collections import OrderedDict, deque
+from collections import OrderedDict, deque, namedtuple
 
 # HTTPS connection for normalize function
 try:
@@ -78,15 +78,13 @@ def by_two(source):
 
     @param source: Result of XMLRPC Multicall
     @type source: generator
-    @r_param out: Items from generator, in pairs
-    @r_type out: list
+    @r_param out: Items from generator, as namedtuple(url, data)
+    @r_type out: namedtuple
     """
-    out = []
-    for x in source:
-        out.append(x)
-        if len(out) == 2:
-            yield out
-            out = []
+    release_info = namedtuple('release_info', ['urls', 'data'])
+    it = iter(source)
+    for urls in it:
+        yield release_info(urls=urls, data=next(it))
 
 
 def count_downloads(package,
