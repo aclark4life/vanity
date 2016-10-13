@@ -141,6 +141,13 @@ def count_downloads(package,
     return count
 
 
+def get_json_from_url(url):
+    """
+    Returns content of url as json
+    """
+    response = urlopen(url)
+    return json.loads(response.read().decode('utf-8'))
+
 # http://stackoverflow.com/a/28786650
 def get_jsonparsed_data(url):
     """Receive content of 'url', parse it as JSON, return the object.
@@ -150,8 +157,7 @@ def get_jsonparsed_data(url):
     @r_param response: JSON data from the URL
     @r_type response: dict
     """
-    response = urlopen(url)
-    response = json.loads(response.read().decode('utf-8'))
+    response = get_json_from_url(url)
 
     sorted_releases = OrderedDict()
     for release in sorted(response['releases'].keys())[::-1]:
