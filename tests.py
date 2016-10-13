@@ -6,6 +6,14 @@ import vanity
 
 
 # mocks
+def mock_single_release(url):
+    return {'releases': {'1.0': ''}}
+
+
+def mock_multi_release(url):
+    return {'releases': {'2.0': '1', '1.0': 'a', '3.1': 'a', '1.5': ''}}
+
+
 def empty_release_info(package, json):
     return iter(())
 
@@ -39,6 +47,38 @@ def Any(object_type):
         def __eq__(self, other):
             return True
     return Any()
+
+    
+class TestGetJsonParsedData(unittest.TestCase):
+    """
+    A test class for the get_jsonparsed_data method.
+    """
+
+    def test_none(self):
+        self.assertRaises(AttributeError,
+                          vanity.get_jsonparsed_data,
+                          None)
+
+    def test_empty_string(self):
+        self.assertRaises(ValueError,
+                          vanity.get_jsonparsed_data,
+                          '')
+
+    @mock.patch('vanity.get_json_from_url', side_effect=mock_single_release)
+    def test_single_release(self, mock_json_func):
+        expected = {'1.0': ''}
+        response = vanity.get_jsonparsed_data('fake url')
+
+        mock_json_func.assert_called_with('fake url')
+        self.assertEqual(response['releases'], expected)
+
+    @mock.patch('vanity.get_json_from_url', side_effect=mock_multi_release)
+    def test_multi_release_sorts(self, mock_json_func):
+        expected = {'1.0': 'a', '1.5': '', '2.0': '1', '3.1': 'a'}
+        response = vanity.get_jsonparsed_data('fake url')
+
+        mock_json_func.assert_called_with('fake url')
+        self.assertEqual(response['releases'], expected)
 
 
 class TestCountDownloads(unittest.TestCase):
