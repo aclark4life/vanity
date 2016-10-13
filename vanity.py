@@ -173,6 +173,9 @@ def normalize(name):
     @r_param normalized_name: Verified package name
     @r_type normalized_name: str
     """
+    if name == "":
+        return ""
+
     http = HTTPSConnection(PYPI_HOST)
     http.request('HEAD', '/pypi/%s/' % name)
     r = http.getresponse()
