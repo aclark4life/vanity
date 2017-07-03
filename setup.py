@@ -12,6 +12,7 @@ setup(author='Alex Clark',
           'Programming Language :: Python :: 3.3',
           'Programming Language :: Python :: 3.4',
           'Programming Language :: Python :: 3.5',
+          'Programming Language :: Python :: 3.6',
       ],
       description='Get package download statistics from PyPI',
       entry_points={
