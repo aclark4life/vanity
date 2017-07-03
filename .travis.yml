@@ -2,7 +2,7 @@ language: python
 
 python:
   - pypy
-  - pypy3
+  - pypy3.3-5.5-alpha
   - 2.7
   - 2.7_with_system_site_packages
   - 3.3
