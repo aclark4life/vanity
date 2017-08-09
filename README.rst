@@ -100,3 +100,10 @@ Enter search pattern::
     Pillow has been downloaded 1173 times!
 
 .. [1] Based on https://github.com/collective/Products.PloneSoftwareCenter/commit/601558870175e35cfa4d05fb309859e580271a1f
+
+BigQuery
+--------
+
+- https://mail.python.org/pipermail/distutils-sig/2016-May/028986.html
+- https://langui.sh/2016/12/09/data-driven-decisions/
+- https://s.caremad.io/lPpTF6rxWZ/
