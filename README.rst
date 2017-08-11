@@ -108,3 +108,4 @@ BigQuery
 - https://langui.sh/2016/12/09/data-driven-decisions/
 - https://s.caremad.io/lPpTF6rxWZ/
 - https://bigquery.cloud.google.com/dataset/the-psf:pypi
+- https://gist.github.com/alex/4f100a9592b05e9b4d63
