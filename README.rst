@@ -107,3 +107,4 @@ BigQuery
 - https://mail.python.org/pipermail/distutils-sig/2016-May/028986.html
 - https://langui.sh/2016/12/09/data-driven-decisions/
 - https://s.caremad.io/lPpTF6rxWZ/
+- https://bigquery.cloud.google.com/dataset/the-psf:pypi
