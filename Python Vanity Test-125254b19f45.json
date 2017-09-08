@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "python-vanity-test",
+  "private_key_id": "125254b19f452809306450db465558fc16b37e4a",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCaycc7AUW+Jzu1\nrhzCodqz1sD4OAkjvdn9xKFToIiaN+y4yfS76HOj+9cjqlN/k3ONwYRNsGJMxYTI\nfpB5WOp5SKYb+e5U6PQjVZTeRi/uSz2iQCRhlCIo8QBJu/Tgb9BGVnMeUn+Dwq9/\nJxKdgpyV3XP+s5gQxnttijN+H2Tk/p53Uc/iYdf4S86HYZ+JRzy0aBeFOxHlqJM9\nAC1gDhNmtFL99nLIlByURMyxZLgixBRKqHeSrCtdhhaD8bi8N/1SPoo1nXzRlh+7\nl7b9/61M7rUHGiQkfK0z1/739whoP0Nej+OOl1gtwjB7blIHKDOkUijz6a48PHzu\nGg6m4igrAgMBAAECggEAQcSWWGXUAlWdMzbFlZU73cnTuCPnDj6ujvqrKWM+Z3h3\nppR43haIfBaXdNn8HGrEYGjnFDNrsP8DykSskkLLbbkGi0CImZ9ZjGHinQbperCR\ngY0LaEKOuSKdYrbv9yTLM/erdijLcWqZMsehSzeh3LN5g7E/XXFYJFTiSCaCsiEs\nVKg2Eh3mVm7lcV4S1rcTpk69WRxdlzuirZ0cho3chFrAPZcG2Swil6zhqoOip7za\nPcR1Nq8h6yZaOaHrQ7VddTm9qQqZjVZQQIeD4x8yDNnxIYrKtg4hiI5LsZb/wBSP\nxrlNTexMzVF8zUxEFkwxlMmOBsvakTy0Q2jAh6MmYQKBgQDP/fGF7g58cB7Qcnuh\n9FYiG5I0oU02W2RAciOKsRvGRztCu7d/R4PVsgYVGZLy9aLi+NY2qsADf+GsaMfI\n61HyW9wbVtG2VOdZhKDZA6UKXF/LlMEB/mEMxdZ9Qh3CcqXy4PE6wL519VbVooSG\nOR79fA/lP1DvX70kOWXqitRm0wKBgQC+hBKBf37y1Y379vgU0MX7v+K0gHDIqRch\nHjrPxV/4C4eoPcQo6oV+w1wkZL9H23psl9T78d3YYHsDV5mcNucsDaa2s1O9lqC2\nTWX+S9Dx7dr/L0YQXGo3QCtHf6gFX/bB9mSco53DaFUyl19sIgZFUUBFbjs3sIqM\ndrsOGNISSQKBgHLWunkBNLxeR5U98Kc+OiSA5pvqh7BAi7zNiHQ2T6iNgdnZvXoo\nKVFfBt61jR5ao8IANH5gjr4f6KGCBPUZgNh5AbGSoR20CTyy7wCDc6eh0z6bdmm8\nYydjQIdObxICrT/KFUckTsTgXj58igF2HndE/Z3M9MoGKW+LxYrXdmkDAoGAYkJp\n7QJd7k64aTDKaKn4wswH2AK6qLOVK06VFJ3+zkbcE6ivqE60xVlrB5YylZQcQy/X\n+I2ZVsUEDQg8QLaMakssJeS9lvW+M+gdZ5egz3ZW0fCG2V9gpNhiugCcHxGMiiNT\nZvp4HtWLw4kQ/QtbYpryZBzjS+iwvJtsBGxGxIkCgYBtMhYKqlbKTxG8ugv3A/9W\nIsX7Ioazt0YS9Ruo8guo3JFElYBZzTVoN2sjMy/6UfrlwD084QJ07vBzqQHzvpkq\nPQo3ZHVUINvqZ1jHQGmImr+onv22xBli7ZQdXqD1wUP67UnuADDaoT2+n4DZ7UUw\n3sPbpiLuBnIE5yeH7Xv6hA==\n-----END PRIVATE KEY-----\n",
+  "client_email": "python-vanity-test@appspot.gserviceaccount.com",
+  "client_id": "110771443544420869463",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/python-vanity-test%40appspot.gserviceaccount.com"
+}

@@ -6,16 +6,15 @@ def site_query(package_name,options=None):
     return parse_data(query.text)
     
 def generate_url(package_name,options):
-    site="pythonpackages.com/api"
-    url=site+""
+    url="https://pythonpackages.com/api/{}/?format=json".format(package_name)
     return url
         
 def parse_data(data):
-    
-    return 1
-
-
-
+    return eval(data)
+"""
+"url":"http://pythonpackages.com/api/packages/29/?format=json","project":"oommfc","version":"0.5.2","downloads":"1050"},{"url":"http://pythonpackages.com/api/packages/30/?format=json","project":"plenum-dev","version":"0.4.41","downloads":"356"},{"url":"http://pythonpackages.com/api/packages/31/?format=json","project":"bioutils","version":"0.0.9","downloads":"3107"},{"url":"http://pythonpackages.com/api/packages/32/?format=json","project":"odoo8-addon-l10n-ch-import-cresus","version":"8.0.1.0.0.99.dev2","downloads":"514"},{"url":"http://pythonpackages.com/api/packages/33/?format=json","project":"microservices","version":"0.27.4","downloads":"2019"},{"url":
+    "http://pythonpackages.com/api/packages/34/?format=json","project":"radb","version":"3.0.1","downloads":"430"}
+"""
 
 
 
@@ -112,6 +111,7 @@ def vanity(package):
         print('No such module or package %r', package)
     for version_count in downloads:
         items.append('%s    %9s' % (version_count[0], version_count[1]))
+        # items.append('%s    %9s' % (version_count['version'], version_count['downloads']))
         count += version_count[1]
     longest = len(max(items, key=len))
     for item in items:
