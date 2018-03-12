@@ -33,9 +33,9 @@ after_success:
   - travis_retry pip install coveralls
   - coveralls
 
-  - travis_retry pip install pep8 pyflakes
-  - pep8 --statistics --count *.py
+  - travis_retry pip install pycodestyle pyflakes
   - pyflakes *.py | tee >(wc -l)
+  - pycodestyle --statistics --count *.py
 
 matrix:
   fast_finish: true
