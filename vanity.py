@@ -273,22 +273,20 @@ def vanity(packages, verbose, json, pattern):
             continue
 
         # Count downloads
-        total = count_downloads(package,
-                                json=json,
-                                version=version,
-                                verbose=verbose,
-                                pattern=pattern)
+        total = count_downloads(
+            package,
+            json=json,
+            version=version,
+            verbose=verbose,
+            pattern=pattern)
         if total != 0:
             if version:
                 logger.debug('%s %s has been downloaded %s times!',
-                             package, version, locale.format("%d",
-                                                             total,
-                                                             grouping=True))
+                             package, version,
+                             locale.format("%d", total, grouping=True))
             else:
-                logger.debug('%s has been downloaded %s times!',
-                             package, locale.format("%d",
-                                                    total,
-                                                    grouping=True))
+                logger.debug('%s has been downloaded %s times!', package,
+                             locale.format("%d", total, grouping=True))
         else:
             if version:
                 logger.debug('No downloads for %s %s.', package, version)
@@ -299,32 +297,30 @@ def vanity(packages, verbose, json, pattern):
     if len(package_list) > 1:
         package_string = (
             ', '.join(package_list[:-1]) + " and " + package_list[-1])
-        logger.debug("%s have been downloaded %s times!",
-                     package_string, locale.format("%d",
-                                                   grand_total,
-                                                   grouping=True))
+        logger.debug("%s have been downloaded %s times!", package_string,
+                     locale.format("%d", grand_total, grouping=True))
 
     logger.debug("\n\n\t *** Note: PyPI stats are broken again; we're now"
                  "waiting for warehouse. https://github.com/aclark4life/"
                  "vanity/issues/22 ***\n\n")
 
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('package', help='pypi package name', nargs='+')
-    parser.add_argument('-q',
-                        '--quiet',
-                        help='only show total downloads',
-                        action='store_true')
-    parser.add_argument('-j',
-                        '--json',
-                        help='use pypi json api instead of xmlrpc',
-                        action='store_true')
-    parser.add_argument('-p',
-                        '--pattern',
-                        help='only show files matching a regex pattern')
+    parser.add_argument(
+        '-q', '--quiet', help='only show total downloads', action='store_true')
+    parser.add_argument(
+        '-j',
+        '--json',
+        help='use pypi json api instead of xmlrpc',
+        action='store_true')
+    parser.add_argument(
+        '-p', '--pattern', help='only show files matching a regex pattern')
     args = parser.parse_args()
 
-    vanity(packages=args.package,
-           verbose=not (args.quiet),
-           json=args.json,
-           pattern=args.pattern)
+    vanity(
+        packages=args.package,
+        verbose=not (args.quiet),
+        json=args.json,
+        pattern=args.pattern)

@@ -15,18 +15,28 @@ def mock_multi_release(url):
 
 
 def mock_json_data(url):
-    return {'releases':
-            {'1.0': [{'filename': 'fake-package',
-                      'downloads': 1,
-                      'upload_time': '2016-10-12T03:00:42'}],
-             '1.9': [{'filename': 'fake-package',
-                      'downloads': 3,
-                      'upload_time': '2016-10-13T09:01:00'}],
-             '1.2': [{'filename': 'fake-package',
-                      'downloads': 2,
-                      'upload_time': '2016-10-13T02:10:08'}]
-             },
-            'info': {'version': '1.0'}}
+    return {
+        'releases': {
+            '1.0': [{
+                'filename': 'fake-package',
+                'downloads': 1,
+                'upload_time': '2016-10-12T03:00:42'
+            }],
+            '1.9': [{
+                'filename': 'fake-package',
+                'downloads': 3,
+                'upload_time': '2016-10-13T09:01:00'
+            }],
+            '1.2': [{
+                'filename': 'fake-package',
+                'downloads': 2,
+                'upload_time': '2016-10-13T02:10:08'
+            }]
+        },
+        'info': {
+            'version': '1.0'
+        }
+    }
 
 
 def empty_release_info(package, json):
@@ -34,22 +44,28 @@ def empty_release_info(package, json):
 
 
 def single_release_info(package, json):
-    url = {'filename': 'fake-package',
-           'downloads': 1,
-           'upload_time': datetime.date(2016, 10, 13)}
+    url = {
+        'filename': 'fake-package',
+        'downloads': 1,
+        'upload_time': datetime.date(2016, 10, 13)
+    }
     data = {'version': '1.0'}
 
     yield [url], data
 
 
 def two_url_release_info(package, json):
-    first_url = {'filename': 'fake-package',
-                 'downloads': 1,
-                 'upload_time': datetime.date(2016, 10, 13)}
+    first_url = {
+        'filename': 'fake-package',
+        'downloads': 1,
+        'upload_time': datetime.date(2016, 10, 13)
+    }
 
-    second_url = {'filename': 'fake-package two',
-                  'downloads': 2,
-                  'upload_time': datetime.date(2016, 10, 13)}
+    second_url = {
+        'filename': 'fake-package two',
+        'downloads': 2,
+        'upload_time': datetime.date(2016, 10, 13)
+    }
 
     data = {'version': '1.0'}
 
@@ -65,6 +81,7 @@ def Any(object_type):
     class Any(object_type):
         def __eq__(self, other):
             return True
+
     return Any()
 
 
@@ -74,14 +91,10 @@ class TestGetJsonParsedData(unittest.TestCase):
     """
 
     def test_none(self):
-        self.assertRaises(AttributeError,
-                          vanity.get_jsonparsed_data,
-                          None)
+        self.assertRaises(AttributeError, vanity.get_jsonparsed_data, None)
 
     def test_empty_string(self):
-        self.assertRaises(ValueError,
-                          vanity.get_jsonparsed_data,
-                          '')
+        self.assertRaises(ValueError, vanity.get_jsonparsed_data, '')
 
     @mock.patch('vanity.get_json_from_url', side_effect=mock_single_release)
     def test_single_release(self, mock_json_func):
@@ -135,30 +148,26 @@ class TestCountDownloads(unittest.TestCase):
     @mock.patch('vanity.get_json_from_url', side_effect=mock_json_data)
     def test_count_json(self, get_json_func):
         expected_url = 'https://pypi.python.org/pypi/fake-package/json'
-        count = vanity.count_downloads('fake-package',
-                                       json=True)
+        count = vanity.count_downloads('fake-package', json=True)
 
         get_json_func.assert_called_with(expected_url)
         self.assertEqual(count, 6)
 
     @mock.patch('vanity.get_release_info', side_effect=single_release_info)
     def test_count_version(self, get_release_func):
-        count = vanity.count_downloads('fake-package',
-                                       version='1.1')
+        count = vanity.count_downloads('fake-package', version='1.1')
 
         self.assertEqual(count, 0)
 
     @mock.patch('vanity.get_release_info', side_effect=single_release_info)
     def test_bad_pattern(self, get_release_func):
-        count = vanity.count_downloads('fake-package',
-                                       pattern='real')
+        count = vanity.count_downloads('fake-package', pattern='real')
 
         self.assertEqual(count, 0)
 
     @mock.patch('vanity.get_release_info', side_effect=single_release_info)
     def test_good_pattern(self, get_release_func):
-        count = vanity.count_downloads('fake-package',
-                                       pattern='[Ff]ake')
+        count = vanity.count_downloads('fake-package', pattern='[Ff]ake')
 
         self.assertEqual(count, 1)
 
@@ -174,8 +183,7 @@ class TestCountDownloads(unittest.TestCase):
     def test_not_verbose_no_debug(self, get_release_func):
         self.mock_logger = mock.Mock()
 
-        count = vanity.count_downloads('fake-package',
-                                       verbose=False)
+        count = vanity.count_downloads('fake-package', verbose=False)
 
         self.assertEqual(count, 1)
         self.mock_logger.debug.assert_not_called()
@@ -194,9 +202,10 @@ class TestByTwo(unittest.TestCase):
         self.assertEqual(result, {})
 
     def test_pairs_url_and_data(self):
-        input = iter(['test.com', 'test data',
-                      'foo.org', 'foo data',
-                      'bar.net', 'bar data'])
+        input = iter([
+            'test.com', 'test data', 'foo.org', 'foo data', 'bar.net',
+            'bar data'
+        ])
 
         result = {url: data for (url, data) in vanity.by_two(input)}
 
@@ -205,9 +214,8 @@ class TestByTwo(unittest.TestCase):
         self.assertEqual(result['bar.net'], 'bar data')
 
     def test_odd_input(self):
-        input = iter(['test.com', 'test data',
-                      'foo.org', 'foo data',
-                      'bar.net'])
+        input = iter(
+            ['test.com', 'test data', 'foo.org', 'foo data', 'bar.net'])
 
         result = {url: data for (url, data) in vanity.by_two(input)}
 
@@ -222,12 +230,8 @@ class TestNormalize(unittest.TestCase):
     """
 
     def test_fake_package(self):
-        self.assertRaises(ValueError,
-                          vanity.normalize,
-                          "FAKEPACKAGE1@!")
-        self.assertRaises(ValueError,
-                          vanity.normalize,
-                          "1337INoscopeyou")
+        self.assertRaises(ValueError, vanity.normalize, "FAKEPACKAGE1@!")
+        self.assertRaises(ValueError, vanity.normalize, "1337INoscopeyou")
 
     def test_django(self):
         normalized = vanity.normalize("dJaNgO")
@@ -270,17 +274,13 @@ class TestVanity(unittest.TestCase):
         # NB: mocks are passed in reverse order
         expected_url = 'https://pypi.python.org/pypi/fake-package/json'
 
-        vanity.vanity(packages=['fake-package'],
-                      verbose=True,
-                      json=True,
-                      pattern=None)
+        vanity.vanity(
+            packages=['fake-package'], verbose=True, json=True, pattern=None)
 
         mock_norm_func.assert_called_with('fake-package')
         mock_json_func.assert_called_with(expected_url)
         self.mock_logger.debug.assert_any_call(
-            '%s has been downloaded %s times!',
-            'fake-package',
-            '6')
+            '%s has been downloaded %s times!', 'fake-package', '6')
 
     @mock.patch('vanity.normalize', side_effect=mock_normalize)
     @mock.patch('vanity.get_json_from_url', side_effect=mock_json_data)
@@ -288,18 +288,17 @@ class TestVanity(unittest.TestCase):
         # NB: mocks are passed in reverse order
         expected_url = 'https://pypi.python.org/pypi/fake-package/json'
 
-        vanity.vanity(packages=['fake-package==1.0'],
-                      verbose=True,
-                      json=True,
-                      pattern=None)
+        vanity.vanity(
+            packages=['fake-package==1.0'],
+            verbose=True,
+            json=True,
+            pattern=None)
 
         mock_norm_func.assert_called_with('fake-package')
         mock_json_func.assert_called_with(expected_url)
         self.mock_logger.debug.assert_any_call(
-            '%s %s has been downloaded %s times!',
-            'fake-package',
-            '1.0',
-            '6')
+            '%s %s has been downloaded %s times!', 'fake-package', '1.0', '6')
+
 
 if __name__ == '__main__':
     unittest.main()
